@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Custom -->
+
+  <ScenPartDef>
+    <defName>MSP_PawnModifier_Gender</defName>
+    <label>[MSP] forced gender</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.ForcedGenderModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>460</summaryPriority>
+  </ScenPartDef>
+
+  <ScenPartDef>
+    <defName>MSP_PawnModifier_Melanin</defName>
+    <label>[MSP] forced melanin</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.ForcedMelaninModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>460</summaryPriority>
+  </ScenPartDef>
+
+  <!--
+  <ScenPartDef>
+    <defName>MSP_PawnFilter_Melanin</defName>
+    <label>[MSP] allowed melanin range</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.AllowedMelaninFilter</scenPartClass>
+    <category>PlayerPawnFilter</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>475</summaryPriority>
+  </ScenPartDef>
+  -->
+
+  <!-- Vanilla Filters -->
+
+  <ScenPartDef>
+    <defName>PawnFilter_Age</defName>
+    <label>[MSP] allowed age range</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.AllowedAgeFilter</scenPartClass>
+    <category>PlayerPawnFilter</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>475</summaryPriority>
+  </ScenPartDef>
+  
+  <!-- Vanilla Modifiers -->
+
+  <ScenPartDef>
+    <defName>ForcedTrait</defName>
+    <label>[MSP] forced trait</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.ForcedTraitModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>460</summaryPriority>
+  </ScenPartDef>
+
+  <ScenPartDef>
+    <defName>Naked</defName>
+    <label>[MSP] naked</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.NakedModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>458</summaryPriority>
+  </ScenPartDef>
+
+  <ScenPartDef>
+    <defName>ForcedHediff</defName>
+    <label>[MSP] forced health condition</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.ForcedHediffModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>458</summaryPriority>
+  </ScenPartDef>
+
+  <ScenPartDef>
+    <defName>SetNeedLevel</defName>
+    <label>[MSP] set need level</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.SetNeedLevelModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>457</summaryPriority>
+  </ScenPartDef>
+
+  <ScenPartDef>
+    <defName>OnPawnDeathExplode</defName>
+    <label>[MSP] on pawn death...</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.OnPawnDeathExplodesModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>457</summaryPriority>
+  </ScenPartDef>
+
+</Defs>

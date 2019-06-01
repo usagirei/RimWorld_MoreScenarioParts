@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+ 
+ <Operation Class="PatchOperationSequence">
+   <success>Always</success>
+   <operations>
+     <li Class="PatchOperationAdd">
+       <xpath>Defs/DamageDef[DefName="BombSuper"]</xpath>
+       <value>
+         <label>super bomb</label>
+       </value>
+     </li>
+   </operations>
+ </Operation>
+
+
+ <Operation Class="PatchOperationSequence">
+   <success>Always</success>
+   <operations>
+     <li Class="PatchOperationAttributeSet">
+       <xpath>Defs/ScenarioDef/scenario/parts/li[@Class="ScenPart_Naked"]</xpath>
+       <attribute>Class</attribute>
+       <value>More_Scenario_Parts.ScenParts.NakedModifier</value>
+     </li>
+   </operations>
+ </Operation>
+
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <li Class="PatchOperationAttributeSet">
+        <xpath>Defs/ScenarioDef/scenario/parts/li[@Class="ScenPart_PawnFilter_Age"]</xpath>
+        <attribute>Class</attribute>
+        <value>More_Scenario_Parts.ScenParts.AllowedAgeFilter</value>
+      </li>
+    </operations>
+  </Operation>
+  
+ <Operation Class="PatchOperationSequence">
+   <success>Always</success>
+   <operations>
+     <li Class="PatchOperationAttributeSet">
+       <xpath>Defs/ScenarioDef/scenario/parts/li[@Class="ScenPart_ForcedTrait"]</xpath>
+       <attribute>Class</attribute>
+       <value>More_Scenario_Parts.ScenParts.ForcedTraitModifier</value>
+     </li>
+   </operations>
+ </Operation>
+
+
+ <Operation Class="PatchOperationSequence">
+   <success>Always</success>
+   <operations>
+     <li Class="PatchOperationAttributeSet">
+       <xpath>Defs/ScenarioDef/scenario/parts/li[@Class="ScenPart_ForcedHediff"]</xpath>
+       <attribute>Class</attribute>
+       <value>More_Scenario_Parts.ScenParts.ForcedHediffModifier</value>
+     </li>
+   </operations>
+ </Operation>
+
+
+ <Operation Class="PatchOperationSequence">
+   <success>Always</success>
+   <operations>
+     <li Class="PatchOperationAttributeSet">
+       <xpath>Defs/ScenarioDef/scenario/parts/li[@Class="ScenPart_SetNeedLevel"]</xpath>
+       <attribute>Class</attribute>
+       <value>More_Scenario_Parts.ScenParts.SetNeedLevelModifier</value>
+     </li>
+   </operations>
+ </Operation>
+
+
+ <Operation Class="PatchOperationSequence">
+   <success>Always</success>
+   <operations>
+     <li Class="PatchOperationAttributeSet">
+       <xpath>Defs/ScenarioDef/scenario/parts/li[@Class="ScenPart_OnPawnDeathExplode"]</xpath>
+       <attribute>Class</attribute>
+       <value>More_Scenario_Parts.ScenParts.OnPawnDeathExplodesModifier</value>
+     </li>
+   </operations>
+ </Operation>
+
+  
+</Patch>

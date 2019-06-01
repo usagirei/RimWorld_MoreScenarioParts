@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[@Name="BasePawn"]/comps</xpath>
+    
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[@Name="BasePawn"]</xpath>
+      <value>
+        <comps>
+          <li>
+            <compClass>More_Scenario_Parts.ScenParts.PawnCreationOptions</compClass>
+          </li>
+        </comps>
+      </value>
+    </nomatch>
+    
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[@Name="BasePawn"]/comps</xpath>
+      <value>
+        <li>
+          <compClass>More_Scenario_Parts.ScenParts.PawnCreationOptions</compClass>
+        </li>
+      </value>
+    </match>
+    
+  </Operation>
+</Patch>

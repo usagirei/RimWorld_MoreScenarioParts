@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  
+  <MSP_Gender_All>all</MSP_Gender_All>
+  <MSP_Gender_Male>male</MSP_Gender_Male>
+  <MSP_Gender_Female>female</MSP_Gender_Female>
+  <MSP_Gender>gender</MSP_Gender>
+  <MSP_Faction>faction</MSP_Faction>
+  <MSP_Undefined>undefined</MSP_Undefined>
+  <MSP_Age>age</MSP_Age>
+
+  <MSP_PawnContext_All>all</MSP_PawnContext_All>
+  <MSP_PawnContext_PlayerStarter>player starting characters</MSP_PawnContext_PlayerStarter>
+  <MSP_PawnContext_NonPlayer>non-player characters</MSP_PawnContext_NonPlayer>
+  <MSP_PawnContext_Player>player faction</MSP_PawnContext_Player>
+  <MSP_PawnContext_Faction>non-player faction</MSP_PawnContext_Faction>
+  
+</LanguageData>
