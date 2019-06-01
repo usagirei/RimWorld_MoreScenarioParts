@@ -103,10 +103,14 @@ namespace More_Scenario_Parts.ScenParts
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)
         {
             if (!humanLike)
+            {
                 return;
+            }
 
             if (pawn.story == null)
+            {
                 return;
+            }
 
             pawn.story.hairColor = new Color(hairColorR.RandomInRange, hairColorG.RandomInRange, hairColorB.RandomInRange);
         }

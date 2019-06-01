@@ -66,19 +66,9 @@ namespace More_Scenario_Parts
 
         public static bool Includes(this PawnModifierGender g, Gender other)
         {
-            if (g == PawnModifierGender.All)
-                return true;
-
-            if (other == Gender.None)
-                return true;
-
-            if (g == PawnModifierGender.Female && other == Gender.Female)
-                return true;
-
-            if (g == PawnModifierGender.Male && other == Gender.Male)
-                return true;
-
-            return false;
+            return (g == PawnModifierGender.All || other == Gender.None)
+                || (g == PawnModifierGender.Female && other == Gender.Female )
+                || (g == PawnModifierGender.Male && other == Gender.Male);
         }
 
         public  static bool Includes(this IntRange range, int val)
@@ -93,7 +83,9 @@ namespace More_Scenario_Parts
         public static IEnumerable<T> GetEnumValues<T>() where T : struct, Enum
         {
             foreach (var v in Enum.GetValues(typeof(T)))
+            {
                 yield return (T)v;
+            }
         }
 
         public static TStruct WithProperty<TStruct, TValue>(this TStruct @struct, string propertyName, TValue value)
@@ -109,7 +101,9 @@ namespace More_Scenario_Parts
         {
             var key = $"<{typeof(T).FullName}>_{typeof(U).Name}_f:{fieldName}";
             if (_setters.TryGetValue(key, out var handler))
+            {
                 return (SetHandler<T, U>)handler;
+            }
 
             var field = typeof(T).GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (field != null)
@@ -134,7 +128,9 @@ namespace More_Scenario_Parts
         {
             var key = $"<{typeof(T).FullName}>_{typeof(U).Name}_p:{propertyName}";
             if (_setters.TryGetValue(key, out var handler))
+            {
                 return (SetHandler<T, U>)handler;
+            }
 
             var prop = typeof(T).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             var setter = prop.GetSetMethod(true);

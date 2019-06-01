@@ -86,10 +86,14 @@ namespace More_Scenario_Parts.ScenParts
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)
         {
             if (!humanLike)
+            {
                 return;
+            }
 
             if (pawn.story == null)
+            {
                 return;
+            }
 
             pawn.story.melanin = melanin.RandomInRange;
         }

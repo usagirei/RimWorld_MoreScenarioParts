@@ -58,13 +58,19 @@ namespace More_Scenario_Parts.ScenParts
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)
         {
             if (!humanLike)
+            {
                 return;
+            }
 
             if (pawn.story == null || pawn.story.traits == null)
+            {
                 return;
+            }
 
             if (pawn.story.traits.HasTrait(trait) && pawn.story.traits.DegreeOfTrait(trait) == degree)
+            {
                 return;
+            }
 
             if (pawn.story.traits.HasTrait(trait))
             {

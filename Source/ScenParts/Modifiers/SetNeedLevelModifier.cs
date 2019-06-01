@@ -53,14 +53,20 @@ namespace More_Scenario_Parts.ScenParts
         protected override void ModifyGeneratedPawn(Pawn p, bool redressed, bool humanLike)
         {
             if (!humanLike)
+            {
                 return;
+            }
 
             if (p.needs == null)
+            {
                 return;
+            }
 
             Need need = p.needs.TryGetNeed(this.need);
             if (need == null)
+            {
                 return;
+            }
 
             need.CurLevelPercentage = levelRange.RandomInRange;
         }

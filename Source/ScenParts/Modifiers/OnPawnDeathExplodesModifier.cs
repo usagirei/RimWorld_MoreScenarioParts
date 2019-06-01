@@ -34,7 +34,9 @@ namespace More_Scenario_Parts.ScenParts
             Rect[] r_rad = rows[1].SplitCols(1, 2);
 
             if (Widgets.ButtonText(rows[0], damage.LabelCap, true, false, true))
+            {
                 FloatMenuUtility.MakeMenu(PossibleDamageDefs(), (DamageDef d) => d.LabelCap, (d) => () => damage = d);
+            }
 
             // Text.Anchor = TextAnchor.MiddleRight;
             Widgets.Label(r_rad[0], R.String.MSP_Radius.CapitalizeFirst());

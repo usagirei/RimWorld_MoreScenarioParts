@@ -71,7 +71,9 @@ namespace More_Scenario_Parts.ScenParts
         public sealed override bool AllowPlayerStartingPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
         {
             if (!gender.Includes(pawn.gender))
+            {
                 return true;
+            }
 
             bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
             bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;
@@ -98,7 +100,9 @@ namespace More_Scenario_Parts.ScenParts
         public sealed override bool AllowWorldGeneratedPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
         {
             if (!gender.Includes(pawn.gender))
+            {
                 return true;
+            }
 
             bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
             bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;

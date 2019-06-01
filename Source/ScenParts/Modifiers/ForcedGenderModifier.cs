@@ -86,10 +86,14 @@ namespace More_Scenario_Parts.ScenParts
         public override PawnGenerationRequest Notify_PawnGenerationRequest(PawnGenerationRequest req)
         {
             if (req.FixedGender.HasValue)
+            {
                 return req;
+            }
 
             if (!Rand.Chance(chance))
+            {
                 return req;
+            }
 
             Gender? g = gender == PawnModifierGender.Female ? Gender.Female : Gender.Male;
             bool isPlayerFaction = req.Faction?.IsPlayer ?? false;
@@ -97,22 +101,14 @@ namespace More_Scenario_Parts.ScenParts
             {
                 case PawnModifierContext.All:
                     return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
-                case PawnModifierContext.Player:
-                    if (isPlayerFaction)
-                        return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
-                    break;
-                case PawnModifierContext.NonPlayer:
-                    if (!isPlayerFaction)
-                        return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
-                    break;
-                case PawnModifierContext.Faction:
-                    if (faction == req.Faction.def)
-                        return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
-                    break;
-                case PawnModifierContext.PlayerStarter:
-                    if (req.Context == PawnGenerationContext.PlayerStarter)
-                        return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
-                    break;
+                case PawnModifierContext.Player when isPlayerFaction:
+                    return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
+                case PawnModifierContext.NonPlayer when !isPlayerFaction:
+                    return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
+                case PawnModifierContext.Faction when faction == req.Faction.def:
+                    return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
+                case PawnModifierContext.PlayerStarter when req.Context == PawnGenerationContext.PlayerStarter:
+                    return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
             }
 
             return req;

@@ -42,9 +42,14 @@ namespace More_Scenario_Parts.ScenParts
                     hediff = x;
                     var maxSeverity = getMaxSeverity(x);
                     if (severityRange.max > maxSeverity)
+                    {
                         severityRange.max = maxSeverity;
+                    }
+
                     if (severityRange.min > maxSeverity)
+                    {
                         severityRange.min = maxSeverity;
+                    }
                 });
             }
 
@@ -80,7 +85,9 @@ namespace More_Scenario_Parts.ScenParts
         protected override void ModifyNewPawn(Pawn p, bool humanLike)
         {
             if (hideOffMap && context == PawnModifierContext.PlayerStarter)
+            {
                 return;
+            }
 
             Hediff hediff = HediffMaker.MakeHediff(this.hediff, p, null);
             hediff.Severity = severityRange.RandomInRange;
@@ -91,7 +98,9 @@ namespace More_Scenario_Parts.ScenParts
         public override void PostMapGenerate(Map map)
         {
             if (!hideOffMap || Find.GameInitData == null || context != PawnModifierContext.PlayerStarter)
+            {
                 return;
+            }
 
             foreach (Pawn p in Find.GameInitData.startingAndOptionalPawns)
             {
@@ -115,9 +124,15 @@ namespace More_Scenario_Parts.ScenParts
         private bool DisallowIfWouldDie(Pawn pawn, PawnGenerationRequest req)
         {
             if (!req.AllowDead && pawn.health.WouldDieAfterAddingHediff(hediff, null, severityRange.max))
+            {
                 return false;
+            }
+
             if (!req.AllowDowned && pawn.health.WouldBeDownedAfterAddingHediff(hediff, null, severityRange.max))
+            {
                 return false;
+            }
+
             return true;
         }
     }

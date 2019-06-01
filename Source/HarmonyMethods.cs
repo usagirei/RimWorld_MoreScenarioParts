@@ -9,16 +9,15 @@ namespace More_Scenario_Parts
         {
             foreach (var part in Find.Scenario.AllParts)
             {
-                if (part is ScenPartEx exp)
+                if (part is ScenPartEx partEx && !partEx.AllowWorldGeneratedPawn(p, tryingToRedress, req))
                 {
-                    if (!exp.AllowWorldGeneratedPawn(p, tryingToRedress, req))
-                        return false;
+                    return false;
                 }
             }
             return true;
         }
 
-        public static bool BeforeGeneratePawn(ref PawnGenerationRequest req)
+        public static void BeforeGeneratePawn(ref PawnGenerationRequest req)
         {
             foreach (var part in Find.Scenario.AllParts)
             {
@@ -27,7 +26,6 @@ namespace More_Scenario_Parts
                     req = exp.Notify_PawnGenerationRequest(req);
                 }
             }
-            return true;
         }
 
         internal static void PrepForMapGen()

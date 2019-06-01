@@ -9,14 +9,9 @@ namespace More_Scenario_Parts.ScenParts
 {
     public class NakedModifier : ScenPartEx_PawnModifier
     {
-        private TraitDef trait;
-        private int degree;
-
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Defs.Look<TraitDef>(ref trait, nameof(trait));
-            Scribe_Values.Look<int>(ref degree, nameof(degree), 0, false);
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -28,8 +23,6 @@ namespace More_Scenario_Parts.ScenParts
         public override void Randomize()
         {
             base.Randomize();
-            this.trait = DefDatabase<TraitDef>.GetRandom();
-            this.degree = this.trait.degreeDatas.RandomElement().degree;
         }
 
         public override bool CanCoexistWith(ScenPart other)
@@ -40,7 +33,9 @@ namespace More_Scenario_Parts.ScenParts
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)
         {
             if (!humanLike)
+            {
                 return;
+            }
 
             if (pawn.apparel != null)
             {

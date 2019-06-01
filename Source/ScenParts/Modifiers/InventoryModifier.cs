@@ -65,9 +65,13 @@ namespace More_Scenario_Parts.ScenParts
 
                     thing = t;
                     if (t.MadeFromStuff)
+                    {
                         stuff = GenStuff.DefaultStuffFor(thing);
+                    }
                     else
+                    {
                         stuff = null;
+                    }
                 });
             }
 
@@ -83,11 +87,19 @@ namespace More_Scenario_Parts.ScenParts
             }
 
             if (amount.max > thing.stackLimit)
+            {
                 amount.max = thing.stackLimit;
+            }
+
             if (amount.min > amount.max)
+            {
                 amount.min = amount.max;
+            }
+
             if (amount.min != 1 && amount.max != 1)
+            {
                 equip = false;
+            }
 
             // Text.Anchor = TextAnchor.MiddleRight;
             Widgets.Label(r_amount[0], R.String.MSP_Amount.CapitalizeFirst());
@@ -109,7 +121,9 @@ namespace More_Scenario_Parts.ScenParts
                 bool oldValue = equip;
                 Widgets.CheckboxLabeled(r_equip, R.String.MSP_Equip.CapitalizeFirst(), ref equip);
                 if (!oldValue && equip)
+                {
                     amount.min = amount.max = 1;
+                }
             }
 
             DoContextEditInterface(a[1]);
@@ -146,7 +160,10 @@ namespace More_Scenario_Parts.ScenParts
         private IEnumerable<ThingDef> GetStuffsForThing()
         {
             if (!thing.MadeFromStuff)
+            {
                 return Enumerable.Empty<ThingDef>();
+            }
+
             return GenStuff.AllowedStuffsFor(thing).OrderBy(t => t.label);
         }
 
@@ -160,9 +177,14 @@ namespace More_Scenario_Parts.ScenParts
             this.equip = Rand.Bool;
 
             if (amount.max > thing.stackLimit)
+            {
                 amount.max = thing.stackLimit;
+            }
+
             if (amount.min > amount.max)
+            {
                 amount.min = amount.max;
+            }
         }
 
         public override bool CanCoexistWith(ScenPart other)
@@ -173,7 +195,9 @@ namespace More_Scenario_Parts.ScenParts
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)
         {
             if (!humanLike)
+            {
                 return;
+            }
 
             var t = ThingMaker.MakeThing(thing, stuff);
             if (equip && thingKind == ThingKind.Aparrel && pawn.apparel != null)
