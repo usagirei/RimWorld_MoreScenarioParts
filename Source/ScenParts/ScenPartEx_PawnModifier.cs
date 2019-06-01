@@ -19,10 +19,10 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<float>(ref chance, nameof(chance), 0f, false);
-            Scribe_Values.Look<PawnModifierContext>(ref this.context, nameof(context), PawnModifierContext.All, false);
-            Scribe_Defs.Look<FactionDef>(ref faction, nameof(faction));
-            Scribe_Values.Look<PawnModifierGender>(ref gender, nameof(gender));
+            Scribe_Values.Look(ref chance, nameof(chance), 0f, false);
+            Scribe_Values.Look(ref this.context, nameof(context), PawnModifierContext.All, false);
+            Scribe_Defs.Look(ref faction, nameof(faction));
+            Scribe_Values.Look(ref gender, nameof(gender));
 
         }
 

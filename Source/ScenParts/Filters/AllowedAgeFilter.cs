@@ -15,7 +15,7 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<IntRange>(ref allowedAgeRange, nameof(allowedAgeRange));
+            Scribe_Values.Look(ref allowedAgeRange, nameof(allowedAgeRange));
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)

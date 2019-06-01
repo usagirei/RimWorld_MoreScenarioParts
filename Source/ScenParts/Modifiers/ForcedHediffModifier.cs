@@ -25,9 +25,9 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Defs.Look<HediffDef>(ref hediff, nameof(hediff));
-            Scribe_Values.Look<FloatRange>(ref severityRange, nameof(severityRange));
-            Scribe_Values.Look<bool>(ref hideOffMap, nameof(hideOffMap));
+            Scribe_Defs.Look(ref hediff, nameof(hediff));
+            Scribe_Values.Look(ref severityRange, nameof(severityRange));
+            Scribe_Values.Look(ref hideOffMap, nameof(hideOffMap));
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)

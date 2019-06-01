@@ -15,7 +15,7 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<FloatRange>(ref melanin, nameof(melanin));
+            Scribe_Values.Look(ref melanin, nameof(melanin));
         }
 
         private float phase = 0;

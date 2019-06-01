@@ -17,9 +17,9 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<FloatRange>(ref hairColorR, nameof(hairColorR));
-            Scribe_Values.Look<FloatRange>(ref hairColorG, nameof(hairColorG));
-            Scribe_Values.Look<FloatRange>(ref hairColorB, nameof(hairColorB));
+            Scribe_Values.Look(ref hairColorR, nameof(hairColorR));
+            Scribe_Values.Look(ref hairColorG, nameof(hairColorG));
+            Scribe_Values.Look(ref hairColorB, nameof(hairColorB));
         }
 
         private float phase = 0;

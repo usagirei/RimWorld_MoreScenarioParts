@@ -15,7 +15,7 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look<FloatRange>(ref allowedMelaninRange, nameof(allowedMelaninRange));
+            Scribe_Values.Look(ref allowedMelaninRange, nameof(allowedMelaninRange));
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)

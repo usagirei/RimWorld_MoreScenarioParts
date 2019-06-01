@@ -18,8 +18,8 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Defs.Look<DamageDef>(ref damage, nameof(damage));
-            Scribe_Values.Look<float>(ref radius, nameof(radius), 0, false);
+            Scribe_Defs.Look(ref damage, nameof(damage));
+            Scribe_Values.Look(ref radius, nameof(radius), 0, false);
         }
 
         private IEnumerable<DamageDef> PossibleDamageDefs()
