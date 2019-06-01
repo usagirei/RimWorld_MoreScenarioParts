@@ -10,7 +10,7 @@ using Verse;
 
 namespace More_Scenario_Parts
 {
-    
+
     [StaticConstructorOnStartup]
     class HarmonyPatches
     {
@@ -57,7 +57,7 @@ namespace More_Scenario_Parts
             pawnsBeingGenerated.Add(Activator.CreateInstance(pgsType, new[] { __result, null }));
             try
             {
-                if (!ignoreScenarioRequirements && request.Context == PawnGenerationContext.NonPlayer && Find.Scenario != null && !ScenarioUtils.AllowWorldStartingPawn(__result, false, request))
+                if (!ignoreScenarioRequirements && request.Context == PawnGenerationContext.NonPlayer && Find.Scenario != null && !HarmonyMethods.AllowWorldStartingPawn(__result, false, request))
                 {
                     discardGeneratedPawn(__result);
                     error = "World Generated pawn doesn't meet scenario requirements.";
@@ -75,56 +75,14 @@ namespace More_Scenario_Parts
 
         private static bool GeneratePawn_ScenPartExSupport(ref PawnGenerationRequest request)
         {
-            ScenarioUtils.BeforeGeneratePawn(ref request);
+            HarmonyMethods.BeforeGeneratePawn(ref request);
             return true;
         }
 
         private static bool PrepForMapGen_ScenPartExSupport()
         {
-            ScenarioUtils.PrepForMapGen();
+            HarmonyMethods.PrepForMapGen();
             return true;
-        }
-    }
-
-    static class ScenarioUtils
-    {
-        public static bool AllowWorldStartingPawn(Pawn p, bool tryingToRedress, PawnGenerationRequest req)
-        {
-            foreach (var part in Find.Scenario.AllParts)
-            {
-                if (part is ScenPartEx exp)
-                {
-                    if (!exp.AllowWorldGeneratedPawn(p, tryingToRedress, req))
-                        return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool BeforeGeneratePawn(ref PawnGenerationRequest req)
-        {
-            foreach (var part in Find.Scenario.AllParts)
-            {
-                if (part is ScenPartEx exp)
-                {
-                    req = exp.Notify_PawnGenerationRequest(req);
-                }
-            }
-            return true;
-        }
-
-        internal static void PrepForMapGen()
-        {
-            var initData = Find.GameInitData;
-            var pawns = initData.startingAndOptionalPawns;
-            var startWith = initData.startingPawnCount;
-
-            for (int i = 0; i < pawns.Count; i++)
-            {
-                Pawn p = pawns[i];
-                var opts = p.GetComp<PawnCreationOptions>();
-                opts.SpawnedOnMapGeneration = i < startWith;
-            }
         }
     }
 }

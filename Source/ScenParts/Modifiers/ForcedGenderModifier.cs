@@ -32,7 +32,7 @@ namespace More_Scenario_Parts.ScenParts
             base.Randomize();
             gender = Rand.Bool ? PawnModifierGender.Male : PawnModifierGender.Female;
             chance = GenMath.RoundedHundredth(Rand.Range(0.05f, 1f));
-            context = Utilities.GetEnumValues<PawnModifierContext>().RandomElement();
+            context = Extensions.GetEnumValues<PawnModifierContext>().RandomElement();
             faction = faction = DefDatabase<FactionDef>.AllDefs.Where(f => !f.isPlayer).RandomElement();
         }
 
@@ -59,7 +59,7 @@ namespace More_Scenario_Parts.ScenParts
             //Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_gender[1], gender.Translate()))
             {
-                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierGender>(), ScenPartExtensions.Translate, (g) => () => gender = g);
+                FloatMenuUtility.MakeMenu(Extensions.GetEnumValues<PawnModifierGender>(), Extensions.Translate, (g) => () => gender = g);
             }
 
             //Text.Anchor = TextAnchor.MiddleRight;
@@ -67,7 +67,7 @@ namespace More_Scenario_Parts.ScenParts
             //Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_context[1], context.Translate(), true, false, true))
             {
-                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierContext>(), ScenPartExtensions.Translate, (c) => () => context = c);
+                FloatMenuUtility.MakeMenu(Extensions.GetEnumValues<PawnModifierContext>(), Extensions.Translate, (c) => () => context = c);
             }
 
             if (isFaction)

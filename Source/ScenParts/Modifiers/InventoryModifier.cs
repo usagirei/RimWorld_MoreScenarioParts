@@ -44,7 +44,7 @@ namespace More_Scenario_Parts.ScenParts
             // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(r_kind[1], thingKind.Translate()))
             {
-                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<ThingKind>(), ScenPartExtensions.Translate, (k) => () =>
+                FloatMenuUtility.MakeMenu(Extensions.GetEnumValues<ThingKind>(), Extensions.Translate, (k) => () =>
                 {
                     thingKind = k;
                     thing = GetThings().RandomElement();
@@ -153,7 +153,7 @@ namespace More_Scenario_Parts.ScenParts
         public override void Randomize()
         {
             base.Randomize();
-            this.thingKind = Utilities.GetEnumValues<ThingKind>().RandomElement();
+            this.thingKind = Extensions.GetEnumValues<ThingKind>().RandomElement();
             this.thing = GetThings().RandomElement();
             this.stuff = GetStuffsForThing().RandomElement();
             this.amount = new IntRange(Rand.RangeInclusive(1, 100), Rand.RangeInclusive(1, 100));

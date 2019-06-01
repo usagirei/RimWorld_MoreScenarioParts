@@ -37,7 +37,7 @@ namespace More_Scenario_Parts.ScenParts
             // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_gender[1], gender.Translate()))
             {
-                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierGender>(), ScenPartExtensions.Translate, (g) => () => gender = g);
+                FloatMenuUtility.MakeMenu(Extensions.GetEnumValues<PawnModifierGender>(), Extensions.Translate, (g) => () => gender = g);
             }
 
             // Text.Anchor = TextAnchor.MiddleRight;
@@ -45,7 +45,7 @@ namespace More_Scenario_Parts.ScenParts
             // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_context[1], context.Translate(), true, false, true))
             {
-                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierContext>(), ScenPartExtensions.Translate, (c) => () => context = c);
+                FloatMenuUtility.MakeMenu(Extensions.GetEnumValues<PawnModifierContext>(), Extensions.Translate, (c) => () => context = c);
             }
 
             if (isFaction)
@@ -63,9 +63,9 @@ namespace More_Scenario_Parts.ScenParts
 
         public override void Randomize()
         {
-            context = Utilities.GetEnumValues<PawnModifierContext>().RandomElement();
+            context = Extensions.GetEnumValues<PawnModifierContext>().RandomElement();
             faction = faction = DefDatabase<FactionDef>.AllDefs.Where(f => !f.isPlayer).RandomElement();
-            gender = Utilities.GetEnumValues<PawnModifierGender>().RandomElement();
+            gender = Extensions.GetEnumValues<PawnModifierGender>().RandomElement();
         }
 
         public sealed override bool AllowPlayerStartingPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)

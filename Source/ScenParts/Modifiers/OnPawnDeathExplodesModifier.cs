@@ -29,7 +29,7 @@ namespace More_Scenario_Parts.ScenParts
 
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
-            Rect rect = listing.GetScenPartRect(this, ScenPart.RowHeight * 6);
+            Rect rect = listing.GetScenPartRect(this, RowHeight * 6);
             Rect[] rows = rect.SplitRows(1, 1, 4);
             Rect[] r_rad = rows[1].SplitCols(1, 2);
 

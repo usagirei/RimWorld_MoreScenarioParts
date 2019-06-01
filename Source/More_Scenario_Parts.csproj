@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="HarmonyMethods.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="Resources\String.MoreScenarioParts.cs" />
     <Compile Include="ScenParts\Filters\AllowedMelaninFilter.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="ScenParts\ThingKind.cs" />
     <Compile Include="ScenParts\PawnCreationOptions.cs" />
     <Compile Include="ScenParts\PawnModifierContext.cs" />
-    <Compile Include="ScenParts\ScenPartExtensions.cs" />
     <Compile Include="ScenParts\PawnModifierGender.cs" />
     <Compile Include="ScenParts\Modifiers\SetNeedLevelModifier.cs" />
     <Compile Include="ScenParts\Modifiers\InventoryModifier.cs" />

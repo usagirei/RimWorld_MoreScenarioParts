@@ -7,7 +7,7 @@ using Verse;
 
 namespace More_Scenario_Parts.ScenParts
 {
-    class PawnCreationOptions : ThingComp
+    public class PawnCreationOptions : ThingComp
     {
         private PawnGenerationRequest request;
         private bool spawnedOnMapGeneration;
