@@ -4,7 +4,7 @@ using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
-using RString = R.MoreScenarioParts.String;
+
 
 namespace More_Scenario_Parts.ScenParts
 {
@@ -40,7 +40,7 @@ namespace More_Scenario_Parts.ScenParts
             Rect r_equip = rows[4]; 
 
             // Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_kind[0], RString.MSP_ThingKind.CapitalizeFirst());
+            Widgets.Label(r_kind[0], R.String.MSP_ThingKind.CapitalizeFirst());
             // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(r_kind[1], thingKind.Translate()))
             {
@@ -56,7 +56,7 @@ namespace More_Scenario_Parts.ScenParts
             }
 
             // Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_thing[0], RString.MSP_Thing.CapitalizeFirst());
+            Widgets.Label(r_thing[0], R.String.MSP_Thing.CapitalizeFirst());
             // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(r_thing[1], thing.LabelCap))
             {
@@ -72,7 +72,7 @@ namespace More_Scenario_Parts.ScenParts
             }
 
             // Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_stuff[0], RString.MSP_Stuff.CapitalizeFirst());
+            Widgets.Label(r_stuff[0], R.String.MSP_Stuff.CapitalizeFirst());
             // Text.Anchor = TextAnchor.UpperLeft;
             if (thing.MadeFromStuff && Widgets.ButtonText(r_stuff[1], stuff.LabelCap))
             {
@@ -90,7 +90,7 @@ namespace More_Scenario_Parts.ScenParts
                 equip = false;
 
             // Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_amount[0], RString.MSP_Amount.CapitalizeFirst());
+            Widgets.Label(r_amount[0], R.String.MSP_Amount.CapitalizeFirst());
             // Text.Anchor = TextAnchor.UpperLeft;
 
             if (thing.stackLimit == 1)
@@ -107,7 +107,7 @@ namespace More_Scenario_Parts.ScenParts
             if (thingKind == ThingKind.Aparrel || thingKind == ThingKind.Weapon)
             {
                 bool oldValue = equip;
-                Widgets.CheckboxLabeled(r_equip, RString.MSP_Equip.CapitalizeFirst(), ref equip);
+                Widgets.CheckboxLabeled(r_equip, R.String.MSP_Equip.CapitalizeFirst(), ref equip);
                 if (!oldValue && equip)
                     amount.min = amount.max = 1;
             }

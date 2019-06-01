@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-using RString = R.MoreScenarioParts.String;
+
 
 namespace More_Scenario_Parts.ScenParts
 {
@@ -38,12 +38,12 @@ namespace More_Scenario_Parts.ScenParts
             Rect[] rect_faction = rows[3].SplitCols(1, 2);
 
             // Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(rect_chance[0], RString.MSP_Chance.CapitalizeFirst());
+            Widgets.Label(rect_chance[0], R.String.MSP_Chance.CapitalizeFirst());
             // Text.Anchor = TextAnchor.UpperLeft;
             Widgets.TextFieldPercent(rect_chance[1], ref chance, ref chanceBuf, 0f, 1f);
 
             // Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(rect_gender[0], RString.MSP_Gender.CapitalizeFirst());
+            Widgets.Label(rect_gender[0], R.String.MSP_Gender.CapitalizeFirst());
             // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_gender[1], gender.Translate()))
             {
@@ -51,7 +51,7 @@ namespace More_Scenario_Parts.ScenParts
             }
 
             // Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(rect_context[0], RString.MSP_Context.CapitalizeFirst());
+            Widgets.Label(rect_context[0], R.String.MSP_Context.CapitalizeFirst());
             // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_context[1], context.Translate(), true, false, true))
             {
@@ -61,7 +61,7 @@ namespace More_Scenario_Parts.ScenParts
             if (isFaction)
             {
                 // Text.Anchor = TextAnchor.MiddleRight;
-                Widgets.Label(rect_faction[0], RString.MSP_Faction.CapitalizeFirst());
+                Widgets.Label(rect_faction[0], R.String.MSP_Faction.CapitalizeFirst());
                 // Text.Anchor = TextAnchor.UpperLeft;
 
                 if (Widgets.ButtonText(rect_faction[1], faction.LabelCap, true, false, true))

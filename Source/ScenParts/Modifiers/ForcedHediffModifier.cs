@@ -4,7 +4,7 @@ using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
-using RString = R.MoreScenarioParts.String;
+
 
 namespace More_Scenario_Parts.ScenParts
 {
@@ -48,7 +48,7 @@ namespace More_Scenario_Parts.ScenParts
                 });
             }
 
-            Widgets.FloatRange(rows[1], listing.CurHeight.GetHashCode(), ref severityRange, 0, getMaxSeverity(hediff), RString.Keys.MSP_HediffSeverity);
+            Widgets.FloatRange(rows[1], listing.CurHeight.GetHashCode(), ref severityRange, 0, getMaxSeverity(hediff), R.String.Keys.MSP_HediffSeverity);
             DoContextEditInterface(rows[2]);
 
             if (context == PawnModifierContext.PlayerStarter)

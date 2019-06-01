@@ -6,7 +6,7 @@
 using System;
 using Verse;
 
-namespace R.MoreScenarioParts {
+namespace More_Scenario_Parts.R {
 	public static partial class String {
 		public static partial class Keys {
 			// ..\Languages\English\Keyed\ScenParts.xml

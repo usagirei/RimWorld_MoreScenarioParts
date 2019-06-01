@@ -5,7 +5,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-using RString = R.MoreScenarioParts.String;
+
 
 namespace More_Scenario_Parts.ScenParts
 {
@@ -32,7 +32,7 @@ namespace More_Scenario_Parts.ScenParts
                 FloatMenuUtility.MakeMenu(DefDatabase<NeedDef>.AllDefs.Where((NeedDef x) => x.major), (x) => x.LabelCap, (x) => () => need = x);
             }
 
-            Widgets.FloatRange(rows[1], listing.CurHeight.GetHashCode(), ref levelRange, 0, 1, RString.Keys.MSP_NeedLevel.CapitalizeFirst());
+            Widgets.FloatRange(rows[1], listing.CurHeight.GetHashCode(), ref levelRange, 0, 1, R.String.Keys.MSP_NeedLevel.CapitalizeFirst());
             DoContextEditInterface(rows[2]);
         }
 
