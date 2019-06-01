@@ -10,11 +10,11 @@ using Verse;
 
 namespace R.{{ namespace }} {
 	public static partial class String {
-		public static class Keys {
+		public static partial class Keys {
 {% for file, elements in args %}
 			// {{ file}}
 {% for element in elements %}
-			public static string {{ element.tag | sanitize_identifier }} => "{{ element.tag }}";
+			public const string {{ element.tag | sanitize_identifier }} = "{{ element.tag }}";
 {% endfor %}
 {% endfor %}
 		}

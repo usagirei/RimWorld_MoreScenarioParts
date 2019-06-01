@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-using StringResource = R.MoreScenarioParts.String;
+using RString = R.MoreScenarioParts.String;
 
 namespace More_Scenario_Parts.ScenParts
 {
@@ -32,17 +32,17 @@ namespace More_Scenario_Parts.ScenParts
             Rect[] rect_context = rows[1].SplitCols(1, 2);
             Rect[] rect_faction = rows[2].SplitCols(1, 2);
 
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(rect_gender[0], StringResource.MSP_Gender);
-            Text.Anchor = TextAnchor.UpperLeft;
+            // Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(rect_gender[0], RString.MSP_Gender.CapitalizeFirst());
+            // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_gender[1], gender.Translate()))
             {
                 FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierGender>(), ScenPartExtensions.Translate, (g) => () => gender = g);
             }
 
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(rect_context[0], StringResource.MSP_Context);
-            Text.Anchor = TextAnchor.UpperLeft;
+            // Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(rect_context[0], RString.MSP_Context.CapitalizeFirst());
+            // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_context[1], context.Translate(), true, false, true))
             {
                 FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierContext>(), ScenPartExtensions.Translate, (c) => () => context = c);
@@ -50,9 +50,9 @@ namespace More_Scenario_Parts.ScenParts
 
             if (isFaction)
             {
-                Text.Anchor = TextAnchor.MiddleRight;
-                Widgets.Label(rect_faction[0], StringResource.MSP_Faction);
-                Text.Anchor = TextAnchor.UpperLeft;
+                // Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(rect_faction[0], RString.MSP_Faction.CapitalizeFirst());
+                // Text.Anchor = TextAnchor.UpperLeft;
 
                 if (Widgets.ButtonText(rect_faction[1], faction.LabelCap, true, false, true))
                 {

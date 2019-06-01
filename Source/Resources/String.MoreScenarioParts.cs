@@ -8,35 +8,35 @@ using Verse;
 
 namespace R.MoreScenarioParts {
 	public static partial class String {
-		public static class Keys {
+		public static partial class Keys {
 			// ..\Languages\English\Keyed\ScenParts.xml
-			public static string MSP_Gender_All => "MSP_Gender_All";
-			public static string MSP_Gender_Male => "MSP_Gender_Male";
-			public static string MSP_Gender_Female => "MSP_Gender_Female";
-			public static string MSP_Gender => "MSP_Gender";
-			public static string MSP_Faction => "MSP_Faction";
-			public static string MSP_Undefined => "MSP_Undefined";
-			public static string MSP_Age => "MSP_Age";
-			public static string MSP_PawnContext_All => "MSP_PawnContext_All";
-			public static string MSP_PawnContext_PlayerStarter => "MSP_PawnContext_PlayerStarter";
-			public static string MSP_PawnContext_PlayerNonStarter => "MSP_PawnContext_PlayerNonStarter";
-			public static string MSP_PawnContext_NonPlayer => "MSP_PawnContext_NonPlayer";
-			public static string MSP_PawnContext_Player => "MSP_PawnContext_Player";
-			public static string MSP_PawnContext_Faction => "MSP_PawnContext_Faction";
-			public static string MSP_ThingKind => "MSP_ThingKind";
-			public static string MSP_Thing => "MSP_Thing";
-			public static string MSP_Stuff => "MSP_Stuff";
-			public static string MSP_Amount => "MSP_Amount";
-			public static string MSP_Equip => "MSP_Equip";
-			public static string MSP_ThingKind_Weapon => "MSP_ThingKind_Weapon";
-			public static string MSP_ThingKind_Aparrel => "MSP_ThingKind_Aparrel";
-			public static string MSP_ThingKind_Building => "MSP_ThingKind_Building";
-			public static string MSP_ThingKind_Items => "MSP_ThingKind_Items";
-			public static string MSP_Context => "MSP_Context";
-			public static string MSP_Chance => "MSP_Chance";
-			public static string MSP_Radius => "MSP_Radius";
-			public static string MSP_NeedLevel => "MSP_NeedLevel";
-			public static string MSP_HediffSeverity => "MSP_HediffSeverity";
+			public const string MSP_Gender_All = "MSP_Gender_All";
+			public const string MSP_Gender_Male = "MSP_Gender_Male";
+			public const string MSP_Gender_Female = "MSP_Gender_Female";
+			public const string MSP_Gender = "MSP_Gender";
+			public const string MSP_Faction = "MSP_Faction";
+			public const string MSP_Undefined = "MSP_Undefined";
+			public const string MSP_Age = "MSP_Age";
+			public const string MSP_PawnContext_All = "MSP_PawnContext_All";
+			public const string MSP_PawnContext_PlayerStarter = "MSP_PawnContext_PlayerStarter";
+			public const string MSP_PawnContext_PlayerNonStarter = "MSP_PawnContext_PlayerNonStarter";
+			public const string MSP_PawnContext_NonPlayer = "MSP_PawnContext_NonPlayer";
+			public const string MSP_PawnContext_Player = "MSP_PawnContext_Player";
+			public const string MSP_PawnContext_Faction = "MSP_PawnContext_Faction";
+			public const string MSP_ThingKind = "MSP_ThingKind";
+			public const string MSP_Thing = "MSP_Thing";
+			public const string MSP_Stuff = "MSP_Stuff";
+			public const string MSP_Amount = "MSP_Amount";
+			public const string MSP_Equip = "MSP_Equip";
+			public const string MSP_ThingKind_Weapon = "MSP_ThingKind_Weapon";
+			public const string MSP_ThingKind_Aparrel = "MSP_ThingKind_Aparrel";
+			public const string MSP_ThingKind_Building = "MSP_ThingKind_Building";
+			public const string MSP_ThingKind_Items = "MSP_ThingKind_Items";
+			public const string MSP_Context = "MSP_Context";
+			public const string MSP_Chance = "MSP_Chance";
+			public const string MSP_Radius = "MSP_Radius";
+			public const string MSP_NeedLevel = "MSP_NeedLevel";
+			public const string MSP_HediffSeverity = "MSP_HediffSeverity";
 		}
 
 		// ..\Languages\English\Keyed\ScenParts.xml

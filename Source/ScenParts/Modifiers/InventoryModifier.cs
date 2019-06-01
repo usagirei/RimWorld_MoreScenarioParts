@@ -39,9 +39,9 @@ namespace More_Scenario_Parts.ScenParts
             Rect[] r_amount = rows[3].SplitCols(1, 2);
             Rect r_equip = rows[4]; 
 
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_kind[0], RString.MSP_ThingKind);
-            Text.Anchor = TextAnchor.UpperLeft;
+            // Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(r_kind[0], RString.MSP_ThingKind.CapitalizeFirst());
+            // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(r_kind[1], thingKind.Translate()))
             {
                 FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<ThingKind>(), ScenPartExtensions.Translate, (k) => () =>
@@ -55,9 +55,9 @@ namespace More_Scenario_Parts.ScenParts
                 });
             }
 
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_thing[0], RString.MSP_Thing);
-            Text.Anchor = TextAnchor.UpperLeft;
+            // Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(r_thing[0], RString.MSP_Thing.CapitalizeFirst());
+            // Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(r_thing[1], thing.LabelCap))
             {
                 FloatMenuUtility.MakeMenu(GetThings(), (t) => t.LabelCap, (t) => () =>
@@ -71,9 +71,9 @@ namespace More_Scenario_Parts.ScenParts
                 });
             }
 
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_stuff[0], RString.MSP_Stuff);
-            Text.Anchor = TextAnchor.UpperLeft;
+            // Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(r_stuff[0], RString.MSP_Stuff.CapitalizeFirst());
+            // Text.Anchor = TextAnchor.UpperLeft;
             if (thing.MadeFromStuff && Widgets.ButtonText(r_stuff[1], stuff.LabelCap))
             {
                 FloatMenuUtility.MakeMenu(GetStuffsForThing(), (s) => s.LabelCap, (s) => () =>
@@ -89,15 +89,15 @@ namespace More_Scenario_Parts.ScenParts
             if (amount.min != 1 && amount.max != 1)
                 equip = false;
 
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_amount[0], RString.MSP_Amount);
-            Text.Anchor = TextAnchor.UpperLeft;
+            // Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(r_amount[0], RString.MSP_Amount.CapitalizeFirst());
+            // Text.Anchor = TextAnchor.UpperLeft;
 
             if (thing.stackLimit == 1)
             {
-                Text.Anchor = TextAnchor.MiddleCenter;
+                // Text.Anchor = TextAnchor.MiddleCenter;
                 Widgets.Label(r_amount[1], thing.stackLimit.ToStringCached());
-                Text.Anchor = TextAnchor.UpperLeft;
+                // Text.Anchor = TextAnchor.UpperLeft;
             }
             else
             {
@@ -107,7 +107,7 @@ namespace More_Scenario_Parts.ScenParts
             if (thingKind == ThingKind.Aparrel || thingKind == ThingKind.Weapon)
             {
                 bool oldValue = equip;
-                Widgets.CheckboxLabeled(r_equip, RString.MSP_Equip, ref equip);
+                Widgets.CheckboxLabeled(r_equip, RString.MSP_Equip.CapitalizeFirst(), ref equip);
                 if (!oldValue && equip)
                     amount.min = amount.max = 1;
             }

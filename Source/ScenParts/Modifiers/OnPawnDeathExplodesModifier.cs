@@ -36,9 +36,9 @@ namespace More_Scenario_Parts.ScenParts
             if (Widgets.ButtonText(rows[0], damage.LabelCap, true, false, true))
                 FloatMenuUtility.MakeMenu(PossibleDamageDefs(), (DamageDef d) => d.LabelCap, (d) => () => damage = d);
 
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_rad[0], RString.MSP_Radius);
-            Text.Anchor = TextAnchor.UpperLeft;
+            // Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(r_rad[0], RString.MSP_Radius.CapitalizeFirst());
+            // Text.Anchor = TextAnchor.UpperLeft;
             Widgets.TextFieldNumeric(r_rad[1], ref radius, ref radiusBuf, 1);
 
             DoContextEditInterface(rows[2]);
