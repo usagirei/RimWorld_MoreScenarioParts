@@ -15,8 +15,8 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Defs.Look<TraitDef>(ref trait, "trait");
-            Scribe_Values.Look<int>(ref degree, "degree", 0, false);
+            Scribe_Defs.Look<TraitDef>(ref trait, nameof(trait));
+            Scribe_Values.Look<int>(ref degree, nameof(degree), 0, false);
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)

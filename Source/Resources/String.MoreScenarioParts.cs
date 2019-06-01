@@ -8,31 +8,64 @@ using Verse;
 
 namespace R.MoreScenarioParts {
 	public static partial class String {
+		public static class Keys {
+			// ..\Languages\English\Keyed\ScenParts.xml
+			public static string MSP_Gender_All => "MSP_Gender_All";
+			public static string MSP_Gender_Male => "MSP_Gender_Male";
+			public static string MSP_Gender_Female => "MSP_Gender_Female";
+			public static string MSP_Gender => "MSP_Gender";
+			public static string MSP_Faction => "MSP_Faction";
+			public static string MSP_Undefined => "MSP_Undefined";
+			public static string MSP_Age => "MSP_Age";
+			public static string MSP_PawnContext_All => "MSP_PawnContext_All";
+			public static string MSP_PawnContext_PlayerStarter => "MSP_PawnContext_PlayerStarter";
+			public static string MSP_PawnContext_PlayerNonStarter => "MSP_PawnContext_PlayerNonStarter";
+			public static string MSP_PawnContext_NonPlayer => "MSP_PawnContext_NonPlayer";
+			public static string MSP_PawnContext_Player => "MSP_PawnContext_Player";
+			public static string MSP_PawnContext_Faction => "MSP_PawnContext_Faction";
+			public static string MSP_ThingKind => "MSP_ThingKind";
+			public static string MSP_Thing => "MSP_Thing";
+			public static string MSP_Stuff => "MSP_Stuff";
+			public static string MSP_Amount => "MSP_Amount";
+			public static string MSP_Equip => "MSP_Equip";
+			public static string MSP_ThingKind_Weapon => "MSP_ThingKind_Weapon";
+			public static string MSP_ThingKind_Aparrel => "MSP_ThingKind_Aparrel";
+			public static string MSP_ThingKind_Building => "MSP_ThingKind_Building";
+			public static string MSP_ThingKind_Items => "MSP_ThingKind_Items";
+			public static string MSP_Context => "MSP_Context";
+			public static string MSP_Chance => "MSP_Chance";
+			public static string MSP_Radius => "MSP_Radius";
+			public static string MSP_NeedLevel => "MSP_NeedLevel";
+			public static string MSP_HediffSeverity => "MSP_HediffSeverity";
+		}
+
 		// ..\Languages\English\Keyed\ScenParts.xml
-		public static string MSP_Gender_All => "MSP_Gender_All".Translate();
-		public static string MSP_Gender_Male => "MSP_Gender_Male".Translate();
-		public static string MSP_Gender_Female => "MSP_Gender_Female".Translate();
-		public static string MSP_Gender => "MSP_Gender".Translate();
-		public static string MSP_Faction => "MSP_Faction".Translate();
-		public static string MSP_Undefined => "MSP_Undefined".Translate();
-		public static string MSP_Age => "MSP_Age".Translate();
-		public static string MSP_PawnContext_All => "MSP_PawnContext_All".Translate();
-		public static string MSP_PawnContext_PlayerStarter => "MSP_PawnContext_PlayerStarter".Translate();
-		public static string MSP_PawnContext_PlayerNonStarter => "MSP_PawnContext_PlayerNonStarter".Translate();
-		public static string MSP_PawnContext_NonPlayer => "MSP_PawnContext_NonPlayer".Translate();
-		public static string MSP_PawnContext_Player => "MSP_PawnContext_Player".Translate();
-		public static string MSP_PawnContext_Faction => "MSP_PawnContext_Faction".Translate();
-		public static string MSP_ThingKind => "MSP_ThingKind".Translate();
-		public static string MSP_Thing => "MSP_Thing".Translate();
-		public static string MSP_Stuff => "MSP_Stuff".Translate();
-		public static string MSP_Amount => "MSP_Amount".Translate();
-		public static string MSP_Equip => "MSP_Equip".Translate();
-		public static string MSP_ThingKind_Weapon => "MSP_ThingKind_Weapon".Translate();
-		public static string MSP_ThingKind_Aparrel => "MSP_ThingKind_Aparrel".Translate();
-		public static string MSP_ThingKind_Building => "MSP_ThingKind_Building".Translate();
-		public static string MSP_ThingKind_Items => "MSP_ThingKind_Items".Translate();
-		public static string MSP_Context => "MSP_Context".Translate();
-		public static string MSP_Chance => "MSP_Chance".Translate();
-		public static string MSP_Radius => "MSP_Radius".Translate();
+		public static string MSP_Gender_All => Keys.MSP_Gender_All.Translate();
+		public static string MSP_Gender_Male => Keys.MSP_Gender_Male.Translate();
+		public static string MSP_Gender_Female => Keys.MSP_Gender_Female.Translate();
+		public static string MSP_Gender => Keys.MSP_Gender.Translate();
+		public static string MSP_Faction => Keys.MSP_Faction.Translate();
+		public static string MSP_Undefined => Keys.MSP_Undefined.Translate();
+		public static string MSP_Age => Keys.MSP_Age.Translate();
+		public static string MSP_PawnContext_All => Keys.MSP_PawnContext_All.Translate();
+		public static string MSP_PawnContext_PlayerStarter => Keys.MSP_PawnContext_PlayerStarter.Translate();
+		public static string MSP_PawnContext_PlayerNonStarter => Keys.MSP_PawnContext_PlayerNonStarter.Translate();
+		public static string MSP_PawnContext_NonPlayer => Keys.MSP_PawnContext_NonPlayer.Translate();
+		public static string MSP_PawnContext_Player => Keys.MSP_PawnContext_Player.Translate();
+		public static string MSP_PawnContext_Faction => Keys.MSP_PawnContext_Faction.Translate();
+		public static string MSP_ThingKind => Keys.MSP_ThingKind.Translate();
+		public static string MSP_Thing => Keys.MSP_Thing.Translate();
+		public static string MSP_Stuff => Keys.MSP_Stuff.Translate();
+		public static string MSP_Amount => Keys.MSP_Amount.Translate();
+		public static string MSP_Equip => Keys.MSP_Equip.Translate();
+		public static string MSP_ThingKind_Weapon => Keys.MSP_ThingKind_Weapon.Translate();
+		public static string MSP_ThingKind_Aparrel => Keys.MSP_ThingKind_Aparrel.Translate();
+		public static string MSP_ThingKind_Building => Keys.MSP_ThingKind_Building.Translate();
+		public static string MSP_ThingKind_Items => Keys.MSP_ThingKind_Items.Translate();
+		public static string MSP_Context => Keys.MSP_Context.Translate();
+		public static string MSP_Chance => Keys.MSP_Chance.Translate();
+		public static string MSP_Radius => Keys.MSP_Radius.Translate();
+		public static string MSP_NeedLevel => Keys.MSP_NeedLevel.Translate();
+		public static string MSP_HediffSeverity => Keys.MSP_HediffSeverity.Translate();
 	}
 }

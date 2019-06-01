@@ -10,10 +10,19 @@ using Verse;
 
 namespace R.{{ namespace }} {
 	public static partial class String {
+		public static class Keys {
+{% for file, elements in args %}
+			// {{ file}}
+{% for element in elements %}
+			public static string {{ element.tag | sanitize_identifier }} => "{{ element.tag }}";
+{% endfor %}
+{% endfor %}
+		}
+
 {% for file, elements in args %}
 		// {{ file}}
 {% for element in elements %}
-		public static string {{ element.tag | sanitize_identifier }} => "{{ element.tag }}".Translate();
+		public static string {{ element.tag | sanitize_identifier }} => Keys.{{ element.tag | sanitize_identifier }}.Translate();
 {% endfor %}
 {% endfor %}
 	}

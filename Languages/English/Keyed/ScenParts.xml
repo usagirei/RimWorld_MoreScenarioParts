@@ -29,5 +29,8 @@
   <MSP_Context>context</MSP_Context>
   <MSP_Chance>chance</MSP_Chance>
   <MSP_Radius>radius</MSP_Radius>
+
+  <MSP_NeedLevel>level</MSP_NeedLevel>
+  <MSP_HediffSeverity>severity</MSP_HediffSeverity>
   
 </LanguageData>
