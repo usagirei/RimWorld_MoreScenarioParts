@@ -49,6 +49,9 @@ namespace More_Scenario_Parts
 
         private static void TryGenerateNewPawnInternal_ScenPartExSupport(ref PawnGenerationRequest request, ref string error, bool ignoreScenarioRequirements, ref Pawn __result)
         {
+            if (__result == null)
+                return;
+
             var pgsType = typeof(PawnGenerator).GetNestedType("PawnGenerationStatus", System.Reflection.BindingFlags.NonPublic);
 
             pawnsBeingGenerated.Add(Activator.CreateInstance(pgsType, new[] { __result, null }));

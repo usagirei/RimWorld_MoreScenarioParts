@@ -11,8 +11,23 @@
 
   <MSP_PawnContext_All>all</MSP_PawnContext_All>
   <MSP_PawnContext_PlayerStarter>player starting characters</MSP_PawnContext_PlayerStarter>
+  <MSP_PawnContext_PlayerNonStarter>player non-starting characters</MSP_PawnContext_PlayerNonStarter>
   <MSP_PawnContext_NonPlayer>non-player characters</MSP_PawnContext_NonPlayer>
   <MSP_PawnContext_Player>player faction</MSP_PawnContext_Player>
   <MSP_PawnContext_Faction>non-player faction</MSP_PawnContext_Faction>
+
+  <MSP_ThingKind>type</MSP_ThingKind>
+  <MSP_Thing>thing</MSP_Thing>
+  <MSP_Stuff>stuff</MSP_Stuff>
+  <MSP_Amount>amount</MSP_Amount>
+  <MSP_Equip>equip</MSP_Equip>
+
+  <MSP_ThingKind_Weapon>weapon</MSP_ThingKind_Weapon>
+  <MSP_ThingKind_Aparrel>apparel</MSP_ThingKind_Aparrel>
+  <MSP_ThingKind_Building>building</MSP_ThingKind_Building>
+  <MSP_ThingKind_Items>items</MSP_ThingKind_Items>
+  <MSP_Context>context</MSP_Context>
+  <MSP_Chance>chance</MSP_Chance>
+  <MSP_Radius>radius</MSP_Radius>
   
 </LanguageData>

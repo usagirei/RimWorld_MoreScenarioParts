@@ -4,6 +4,7 @@ using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using RString = R.MoreScenarioParts.String;
 
 namespace More_Scenario_Parts.ScenParts
 {
@@ -36,7 +37,7 @@ namespace More_Scenario_Parts.ScenParts
                 FloatMenuUtility.MakeMenu(PossibleDamageDefs(), (DamageDef d) => d.LabelCap, (d) => () => damage = d);
 
             Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(r_rad[0], "radius".Translate());
+            Widgets.Label(r_rad[0], RString.MSP_Radius);
             Text.Anchor = TextAnchor.UpperLeft;
             Widgets.TextFieldNumeric(r_rad[1], ref radius, ref radiusBuf, 1);
 

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Extensions.cs" />
     <Compile Include="HarmonyPatches.cs" />
+    <Compile Include="Resources\String.MoreScenarioParts.cs" />
     <Compile Include="ScenParts\Filters\AllowedMelaninFilter.cs" />
     <Compile Include="ScenParts\Modifiers\ForcedGenderModifier.cs" />
     <Compile Include="ScenParts\Modifiers\ForcedHediffModifier.cs" />
@@ -60,22 +61,27 @@
     <Compile Include="ScenParts\Modifiers\ForcedHairColorModifier.cs" />
     <Compile Include="ScenParts\Modifiers\ForcedMelaninModifier.cs" />
     <Compile Include="ScenParts\Modifiers\ForcedTraitModifier.cs" />
+    <Compile Include="ScenParts\Modifiers\NakedModifier.cs" />
     <Compile Include="ScenParts\Modifiers\OnPawnDeathExplodesModifier.cs" />
+    <Compile Include="ScenParts\ThingKind.cs" />
     <Compile Include="ScenParts\PawnCreationOptions.cs" />
     <Compile Include="ScenParts\PawnModifierContext.cs" />
-    <Compile Include="ScenParts\PawnModifierExtensions.cs" />
+    <Compile Include="ScenParts\ScenPartExtensions.cs" />
     <Compile Include="ScenParts\PawnModifierGender.cs" />
     <Compile Include="ScenParts\Modifiers\SetNeedLevelModifier.cs" />
-    <Compile Include="ScenParts\Modifiers\NakedModifier.cs" />
+    <Compile Include="ScenParts\Modifiers\InventoryModifier.cs" />
     <Compile Include="ScenParts\ScenPartEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenParts\ScenPartEx_PawnFilter.cs" />
     <Compile Include="ScenParts\ScenPartEx_PawnModifier.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>pushd $(ProjectDir)
+python CodeGen\gen_res.py ..\Languages Resources\String.MoreScenarioParts.cs LanguageData /LanguageData/* -d namespace MoreScenarioParts
+REM python CodeGen\gen_res.py ..\..\Core\Languages\English Resources\String.Core.cs LanguageData /LanguageData/* -d namespace Core
+popd</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <StartAction>Program</StartAction>

@@ -1,26 +1,44 @@
 ﻿using RimWorld;
 using Verse;
+using RString = R.MoreScenarioParts.String;
 
 namespace More_Scenario_Parts.ScenParts
 {
-    public static class PawnModifierExtensions
+    public static class ScenPartExtensions
     {
+        public static string Translate(this ThingKind thing)
+        {
+            switch (thing)
+            {
+                case ThingKind.Weapon:
+                    return RString.MSP_ThingKind_Weapon;
+                case ThingKind.Aparrel:
+                    return RString.MSP_ThingKind_Aparrel;
+                case ThingKind.Building:
+                    return RString.MSP_ThingKind_Building;
+                case ThingKind.Items:
+                    return RString.MSP_ThingKind_Items;
+                default:
+                    return RString.MSP_Undefined;
+            }
+        }
+
         public static string Translate(this PawnModifierContext c)
         {
             switch (c)
             {
                 case PawnModifierContext.All:
-                    return "MSP_PawnContext_All".Translate();
+                    return RString.MSP_PawnContext_All;
                 case PawnModifierContext.PlayerStarter:
-                    return "MSP_PawnContext_PlayerStarter".Translate();
+                    return RString.MSP_PawnContext_PlayerStarter;
                 case PawnModifierContext.NonPlayer:
-                    return "MSP_PawnContext_NonPlayer".Translate();
+                    return RString.MSP_PawnContext_NonPlayer;
                 case PawnModifierContext.Faction:
-                    return "MSP_PawnContext_Faction".Translate();
+                    return RString.MSP_PawnContext_Faction;
                 case PawnModifierContext.Player:
-                    return "MSP_PawnContext_Player".Translate();
+                    return RString.MSP_PawnContext_Player;
                 default:
-                    return "MSP_Undefined".Translate();
+                    return RString.MSP_Undefined;
             }
         }
 
@@ -29,13 +47,13 @@ namespace More_Scenario_Parts.ScenParts
             switch (c)
             {
                 case PawnModifierGender.All:
-                    return "MSP_Gender_All".Translate();
+                    return RString.MSP_Gender_All;
                 case PawnModifierGender.Male:
-                    return "MSP_Gender_Male".Translate();
+                    return RString.MSP_Gender_Male;
                 case PawnModifierGender.Female:
-                    return "MSP_Gender_Female".Translate();
+                    return RString.MSP_Gender_Female;
                 default:
-                    return "MSP_Undefined".Translate();
+                    return RString.MSP_Undefined;
             }
         }
 
@@ -55,14 +73,5 @@ namespace More_Scenario_Parts.ScenParts
 
             return false;
         }
-
-        public static bool Includes(this PawnModifierGender g, PawnModifierGender other)
-        {
-            if (g == PawnModifierGender.All)
-                return true;
-
-            return g == other;
-        }
-
     }
 }

@@ -3,6 +3,8 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
+using StringResource = R.MoreScenarioParts.String;
+
 namespace More_Scenario_Parts.ScenParts
 {
     public class ScenPartEx_PawnFilter : ScenPartEx
@@ -31,25 +33,25 @@ namespace More_Scenario_Parts.ScenParts
             Rect[] rect_faction = rows[2].SplitCols(1, 2);
 
             Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(rect_gender[0], "MSP_Gender".Translate());
+            Widgets.Label(rect_gender[0], StringResource.MSP_Gender);
             Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_gender[1], gender.Translate()))
             {
-                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierGender>(), PawnModifierExtensions.Translate, (g) => () => gender = g);
+                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierGender>(), ScenPartExtensions.Translate, (g) => () => gender = g);
             }
 
             Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(rect_context[0], "context".Translate());
+            Widgets.Label(rect_context[0], StringResource.MSP_Context);
             Text.Anchor = TextAnchor.UpperLeft;
             if (Widgets.ButtonText(rect_context[1], context.Translate(), true, false, true))
             {
-                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierContext>(), PawnModifierExtensions.Translate, (c) => () => context = c);
+                FloatMenuUtility.MakeMenu(Utilities.GetEnumValues<PawnModifierContext>(), ScenPartExtensions.Translate, (c) => () => context = c);
             }
 
             if (isFaction)
             {
                 Text.Anchor = TextAnchor.MiddleRight;
-                Widgets.Label(rect_faction[0], "MSP_Faction".Translate());
+                Widgets.Label(rect_faction[0], StringResource.MSP_Faction);
                 Text.Anchor = TextAnchor.UpperLeft;
 
                 if (Widgets.ButtonText(rect_faction[1], faction.LabelCap, true, false, true))

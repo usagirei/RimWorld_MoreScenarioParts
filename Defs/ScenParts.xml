@@ -30,6 +30,15 @@
     <summaryPriority>460</summaryPriority>
   </ScenPartDef>
 
+  <ScenPartDef>
+    <defName>MSP_PawnModifier_EquippedWith</defName>
+    <label>[MSP] inventory</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.InventoryModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>460</summaryPriority>
+  </ScenPartDef>
+
   <!--
   <ScenPartDef>
     <defName>MSP_PawnFilter_Melanin</defName>

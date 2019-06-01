@@ -7,7 +7,6 @@ using Verse;
 
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class NakedModifier : ScenPartEx_PawnModifier
     {
         private TraitDef trait;

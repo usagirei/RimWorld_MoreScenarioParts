@@ -42,9 +42,9 @@ namespace More_Scenario_Parts.ScenParts
             curCol = new Color(r, g, b);
 
             Rect rect = listing.GetScenPartRect(this, RowHeight * 4 + 3 * 31f);
-            Rect[] rows = rect.SplitRows(31f * 3, 4 * RowHeight);
+            Rect[] rows = rect.SplitRows( 31f * 3, 4 * RowHeight );
 
-            Rect[] cols = rows[0].SplitCols(rows[0].width - rows[0].height, rows[0].height);
+            Rect[] cols = rows[0].SplitCols( rows[0].width - rows[0].height, rows[0].height );
             Rect prev = cols[1].ContractedBy(8);
             Rect[] sliders = cols[0].SplitRows(1, 1, 1);
 
