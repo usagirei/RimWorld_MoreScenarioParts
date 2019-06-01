@@ -25,7 +25,7 @@ namespace More_Scenario_Parts.ScenParts
             Rect rect = listing.GetScenPartRect(this, RowHeight * 5);
             Rect[] rows = rect.SplitRows(1, 4);
 
-            if (Widgets.ButtonText(rows[0], this.trait.DataAtDegree(this.degree).label.CapitalizeFirst(), true, false, true))
+            if (Widgets.ButtonText(rows[0], trait.DataAtDegree(degree).label.CapitalizeFirst(), true, false, true))
             {
                 var defs = from def in DefDatabase<TraitDef>.AllDefs
                            from deg in def.degreeDatas
@@ -45,8 +45,8 @@ namespace More_Scenario_Parts.ScenParts
         public override void Randomize()
         {
             base.Randomize();
-            this.trait = DefDatabase<TraitDef>.GetRandom();
-            this.degree = this.trait.degreeDatas.RandomElement().degree;
+            trait = DefDatabase<TraitDef>.GetRandom();
+            degree = trait.degreeDatas.RandomElement().degree;
         }
 
         public override bool CanCoexistWith(ScenPart other)

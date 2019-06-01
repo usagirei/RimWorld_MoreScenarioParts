@@ -49,8 +49,8 @@ namespace More_Scenario_Parts.ScenParts
         public override void Randomize()
         {
             base.Randomize();
-            this.damage = PossibleDamageDefs().RandomElement();
-            this.radius = Rand.RangeInclusive(3, 8) - 0.1f;
+            damage = PossibleDamageDefs().RandomElement();
+            radius = Rand.RangeInclusive(3, 8) - 0.1f;
         }
 
         public override bool CanCoexistWith(ScenPart other)

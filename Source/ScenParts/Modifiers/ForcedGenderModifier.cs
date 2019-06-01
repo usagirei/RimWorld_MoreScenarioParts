@@ -21,7 +21,7 @@ namespace More_Scenario_Parts.ScenParts
         {
             base.ExposeData();
             Scribe_Values.Look(ref chance, nameof(chance), 0f, false);
-            Scribe_Values.Look(ref this.context, nameof(context), PawnModifierContext.All, false);
+            Scribe_Values.Look(ref context, nameof(context), PawnModifierContext.All, false);
             Scribe_Values.Look(ref faction, nameof(faction));
             Scribe_Values.Look(ref gender, nameof(gender));
         }

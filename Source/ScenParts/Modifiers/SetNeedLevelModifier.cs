@@ -27,7 +27,7 @@ namespace More_Scenario_Parts.ScenParts
             Rect rect = listing.GetScenPartRect(this, RowHeight * 5 + 31f);
             Rect[] rows = rect.SplitRows(RowHeight, 31f, 4 * RowHeight);
 
-            if (Widgets.ButtonText(rows[0], this.need.LabelCap, true, false, true))
+            if (Widgets.ButtonText(rows[0], need.LabelCap, true, false, true))
             {
                 FloatMenuUtility.MakeMenu(DefDatabase<NeedDef>.AllDefs.Where((NeedDef x) => x.major), (x) => x.LabelCap, (x) => () => need = x);
             }
@@ -39,9 +39,9 @@ namespace More_Scenario_Parts.ScenParts
         public override void Randomize()
         {
             base.Randomize();
-            this.need = DefDatabase<NeedDef>.AllDefs.Where((NeedDef x) => x.major).RandomElement();
-            this.levelRange.max = Rand.Range(0f, 1f);
-            this.levelRange.min = this.levelRange.max * Rand.Range(0f, 0.95f);
+            need = DefDatabase<NeedDef>.AllDefs.Where((NeedDef x) => x.major).RandomElement();
+            levelRange.max = Rand.Range(0f, 1f);
+            levelRange.min = levelRange.max * Rand.Range(0f, 0.95f);
         }
 
         public override bool CanCoexistWith(ScenPart other)
@@ -50,25 +50,25 @@ namespace More_Scenario_Parts.ScenParts
             return true;
         }
 
-        protected override void ModifyGeneratedPawn(Pawn p, bool redressed, bool humanLike)
+        protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)
         {
             if (!humanLike)
             {
                 return;
             }
 
-            if (p.needs == null)
+            if (pawn.needs == null)
             {
                 return;
             }
 
-            Need need = p.needs.TryGetNeed(this.need);
-            if (need == null)
+            Need pawnNeed = pawn.needs.TryGetNeed(need);
+            if (pawnNeed == null)
             {
                 return;
             }
 
-            need.CurLevelPercentage = levelRange.RandomInRange;
+            pawnNeed.CurLevelPercentage = levelRange.RandomInRange;
         }
     }
 }

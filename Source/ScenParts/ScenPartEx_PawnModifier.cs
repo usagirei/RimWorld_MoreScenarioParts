@@ -20,7 +20,7 @@ namespace More_Scenario_Parts.ScenParts
         {
             base.ExposeData();
             Scribe_Values.Look(ref chance, nameof(chance), 0f, false);
-            Scribe_Values.Look(ref this.context, nameof(context), PawnModifierContext.All, false);
+            Scribe_Values.Look(ref context, nameof(context), PawnModifierContext.All, false);
             Scribe_Defs.Look(ref faction, nameof(faction));
             Scribe_Values.Look(ref gender, nameof(gender));
 
@@ -79,9 +79,9 @@ namespace More_Scenario_Parts.ScenParts
             gender = Extensions.GetEnumValues<PawnModifierGender>().RandomElement();
         }
 
-        public sealed override void Notify_NewPawnGenerating(Pawn pawn, PawnGenerationContext context)
+        public sealed override void Notify_NewPawnGenerating(Pawn pawn, PawnGenerationContext coreContext)
         {
-            if (!this.gender.Includes(pawn.gender))
+            if (!gender.Includes(pawn.gender))
             {
                 return;
             }
@@ -92,57 +92,37 @@ namespace More_Scenario_Parts.ScenParts
             }
 
             bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
-            bool isStartingPawn = context == PawnGenerationContext.PlayerStarter;
+            bool isStartingPawn = coreContext == PawnGenerationContext.PlayerStarter;
 
-            switch (this.context)
+            switch (context)
             {
                 case PawnModifierContext.All:
                     ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
                     break;
 
-                case PawnModifierContext.Player:
-                    if (isPlayerFaction)
-                    {
-                        ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
-                    }
-
+                case PawnModifierContext.Player when isPlayerFaction:
+                    ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
                     break;
-                case PawnModifierContext.NonPlayer:
-                    if (!isPlayerFaction)
-                    {
-                        ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
-                    }
-
+                case PawnModifierContext.NonPlayer when !isPlayerFaction:
+                    ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
                     break;
 
-                case PawnModifierContext.PlayerStarter:
-                    if (context == PawnGenerationContext.PlayerStarter)
-                    {
-                        ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
-                    }
-
+                case PawnModifierContext.PlayerStarter when isStartingPawn:
+                    ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
                     break;
-                case PawnModifierContext.PlayerNonStarter:
-                    if (context == PawnGenerationContext.NonPlayer && isPlayerFaction)
-                    {
-                        ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
-                    }
-
+                case PawnModifierContext.PlayerNonStarter when !isStartingPawn && isPlayerFaction:
+                    ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
                     break;
 
-                case PawnModifierContext.Faction:
-                    if (pawn.Faction.def == faction)
-                    {
-                        ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
-                    }
-
+                case PawnModifierContext.Faction when pawn.Faction.def == faction:
+                    ModifyNewPawn(pawn, pawn.RaceProps.Humanlike);
                     break;
             }
         }
 
-        public sealed override void Notify_PawnGenerated(Pawn pawn, PawnGenerationContext context, bool redressed)
+        public sealed override void Notify_PawnGenerated(Pawn pawn, PawnGenerationContext coreContext, bool redressed)
         {
-            if (!this.gender.Includes(pawn.gender))
+            if (!gender.Includes(pawn.gender))
             {
                 return;
             }
@@ -153,9 +133,9 @@ namespace More_Scenario_Parts.ScenParts
             }
 
             bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
-            bool isStartingPawn = context == PawnGenerationContext.PlayerStarter;
+            bool isStartingPawn = coreContext == PawnGenerationContext.PlayerStarter;
 
-            switch (this.context)
+            switch (context)
             {
                 case PawnModifierContext.All:
                     ModifyGeneratedPawn(pawn, redressed, pawn.RaceProps.Humanlike);
@@ -168,10 +148,10 @@ namespace More_Scenario_Parts.ScenParts
                     ModifyGeneratedPawn(pawn, redressed, pawn.RaceProps.Humanlike);
                     break;
 
-                case PawnModifierContext.PlayerStarter when context == PawnGenerationContext.PlayerStarter:
+                case PawnModifierContext.PlayerStarter when isStartingPawn:
                     ModifyGeneratedPawn(pawn, redressed, pawn.RaceProps.Humanlike);
                     break;
-                case PawnModifierContext.PlayerNonStarter when context == PawnGenerationContext.NonPlayer && isPlayerFaction:
+                case PawnModifierContext.PlayerNonStarter when !isStartingPawn && isPlayerFaction:
                     ModifyGeneratedPawn(pawn, redressed, pawn.RaceProps.Humanlike);
                     break;
 
@@ -185,7 +165,7 @@ namespace More_Scenario_Parts.ScenParts
         {
             Pawn pawn = corpse.InnerPawn;
 
-            if (!this.gender.Includes(corpse.InnerPawn.gender))
+            if (!gender.Includes(pawn.gender))
             {
                 return;
             }
@@ -195,32 +175,32 @@ namespace More_Scenario_Parts.ScenParts
                 return;
             }
 
-            var opts = corpse.InnerPawn.GetComp<PawnCreationOptions>();
+            var opts = pawn.GetComp<PawnCreationOptions>();
 
-            bool isPlayerFaction = corpse.InnerPawn.Faction?.IsPlayer ?? false;
+            bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
             bool isStartingPawn = opts.IsStartingPawn;
-            switch (this.context)
+            switch (context)
             {
                 case PawnModifierContext.All:
-                    ModifyDeadPawn(corpse, corpse.InnerPawn.RaceProps.Humanlike);
+                    ModifyDeadPawn(corpse, pawn.RaceProps.Humanlike);
                     break;
 
                 case PawnModifierContext.Player when isPlayerFaction:
-                    ModifyDeadPawn(corpse, corpse.InnerPawn.RaceProps.Humanlike);
+                    ModifyDeadPawn(corpse, pawn.RaceProps.Humanlike);
                     break;
                 case PawnModifierContext.NonPlayer when !isPlayerFaction:
-                    ModifyDeadPawn(corpse, corpse.InnerPawn.RaceProps.Humanlike);
+                    ModifyDeadPawn(corpse, pawn.RaceProps.Humanlike);
                     break;
 
                 case PawnModifierContext.PlayerStarter when isStartingPawn:
-                    ModifyDeadPawn(corpse, corpse.InnerPawn.RaceProps.Humanlike);
+                    ModifyDeadPawn(corpse, pawn.RaceProps.Humanlike);
                     break;
                 case PawnModifierContext.PlayerNonStarter when isPlayerFaction && !isStartingPawn:
-                    ModifyDeadPawn(corpse, corpse.InnerPawn.RaceProps.Humanlike);
+                    ModifyDeadPawn(corpse, pawn.RaceProps.Humanlike);
                     break;
 
                 case PawnModifierContext.Faction when corpse.Faction.def == faction:
-                    ModifyDeadPawn(corpse, corpse.InnerPawn.RaceProps.Humanlike);
+                    ModifyDeadPawn(corpse, pawn.RaceProps.Humanlike);
                     break;
 
             }

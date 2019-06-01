@@ -35,7 +35,7 @@ namespace More_Scenario_Parts.ScenParts
             Rect rect = listing.GetScenPartRect(this, RowHeight * 5 + 31f);
             Rect[] rows = rect.SplitRows(RowHeight, 31f, 4 * RowHeight);
 
-            if (Widgets.ButtonText(rows[0], this.hediff.LabelCap, true, false, true))
+            if (Widgets.ButtonText(rows[0], hediff.LabelCap, true, false, true))
             {
                 FloatMenuUtility.MakeMenu(DefDatabase<HediffDef>.AllDefs.Where((HediffDef x) => x.scenarioCanAdd), (x) => x.LabelCap, (x) => () =>
                 {
@@ -74,9 +74,9 @@ namespace More_Scenario_Parts.ScenParts
 
         public override bool TryMerge(ScenPart other)
         {
-            if (other is ForcedHediffModifier fhm && this.hediff == fhm.hediff)
+            if (other is ForcedHediffModifier fhm && hediff == fhm.hediff)
             {
-                chance = GenMath.ChanceEitherHappens(this.chance, fhm.chance);
+                chance = GenMath.ChanceEitherHappens(chance, fhm.chance);
                 return true;
             }
             return false;
@@ -89,9 +89,9 @@ namespace More_Scenario_Parts.ScenParts
                 return;
             }
 
-            Hediff hediff = HediffMaker.MakeHediff(this.hediff, p, null);
-            hediff.Severity = severityRange.RandomInRange;
-            p.health.AddHediff(hediff, null, null, null);
+            Hediff instance = HediffMaker.MakeHediff(hediff, p, null);
+            instance.Severity = severityRange.RandomInRange;
+            p.health.AddHediff(instance, null, null, null);
 
         }
 
@@ -104,9 +104,9 @@ namespace More_Scenario_Parts.ScenParts
 
             foreach (Pawn p in Find.GameInitData.startingAndOptionalPawns)
             {
-                if (Rand.Chance(this.chance) && p.RaceProps.Humanlike)
+                if (Rand.Chance(chance) && p.RaceProps.Humanlike)
                 {
-                    this.ModifyNewPawn(p, p.RaceProps.Humanlike);
+                    ModifyNewPawn(p, p.RaceProps.Humanlike);
                 }
             }
         }

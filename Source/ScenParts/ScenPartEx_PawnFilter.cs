@@ -16,7 +16,7 @@ namespace More_Scenario_Parts.ScenParts
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref this.context, nameof(context), PawnModifierContext.All, false);
+            Scribe_Values.Look(ref context, nameof(context), PawnModifierContext.All, false);
             Scribe_Values.Look(ref faction, nameof(faction));
             Scribe_Values.Look(ref gender, nameof(gender));
 

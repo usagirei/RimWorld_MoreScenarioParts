@@ -170,11 +170,11 @@ namespace More_Scenario_Parts.ScenParts
         public override void Randomize()
         {
             base.Randomize();
-            this.thingKind = Extensions.GetEnumValues<ThingKind>().RandomElement();
-            this.thing = GetThings().RandomElement();
-            this.stuff = GetStuffsForThing().RandomElement();
-            this.amount = new IntRange(Rand.RangeInclusive(1, 100), Rand.RangeInclusive(1, 100));
-            this.equip = Rand.Bool;
+            thingKind = Extensions.GetEnumValues<ThingKind>().RandomElement();
+            thing = GetThings().RandomElement();
+            stuff = GetStuffsForThing().RandomElement();
+            amount = new IntRange(Rand.RangeInclusive(1, 100), Rand.RangeInclusive(1, 100));
+            equip = Rand.Bool;
 
             if (amount.max > thing.stackLimit)
             {
