@@ -4,11 +4,23 @@
  <Operation Class="PatchOperationSequence">
    <success>Always</success>
    <operations>
-     <li Class="PatchOperationReplace">
-       <xpath>Defs/DamageDef[DefName="BombSuper"]</xpath>
-       <value>
-         <label>super bomb</label>
-       </value>
+     <li Class="PatchOperationConditional">
+       <xpath>/Defs/DamageDef[defName="BombSuper"]/label</xpath>
+
+       <nomatch Class="PatchOperationAdd">
+         <xpath>/Defs/DamageDef[defName="BombSuper"]</xpath>
+         <value>
+           <label>super bomb</label>
+         </value>
+       </nomatch>
+
+       <match Class="PatchOperationReplace">
+         <xpath>/Defs/DamageDef[defName="BombSuper"]/label</xpath>
+         <value>
+           <label>super bomb</label>
+         </value>
+       </match>
+
      </li>
    </operations>
  </Operation>
