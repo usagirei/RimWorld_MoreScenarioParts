@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,37 @@ namespace More_Scenario_Parts.ScenParts
 {
     class PawnCreationOptions : ThingComp
     {
-        private PawnCreationOptionProps Props => (PawnCreationOptionProps) props;
+        private PawnGenerationRequest request;
+        private bool spawnedOnMapGeneration;
+         
+
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_Values.Look(ref request, nameof(request));
+            Scribe_Values.Look(ref spawnedOnMapGeneration, nameof(spawnedOnMapGeneration), false);
+        }
+
+        public PawnGenerationContext Context
+        {
+            get => request.Context;
+        }
 
         public bool IsStartingPawn
         {
-            get => Props.isStartingPawn;
-            set => Props.isStartingPawn = true;
+            get => request.Context == PawnGenerationContext.PlayerStarter;
         }
-    }
 
-    class PawnCreationOptionProps : CompProperties
-    {
-        public bool isStartingPawn;
+        public bool SpawnedOnMapGeneration
+        {
+            get => spawnedOnMapGeneration;
+            set => spawnedOnMapGeneration = value;
+        }
+
+        public PawnGenerationRequest Request
+        {
+            get => request;
+            set => request = value;
+        }
     }
 }

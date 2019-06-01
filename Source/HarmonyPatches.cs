@@ -33,11 +33,19 @@ namespace More_Scenario_Parts
                postfix: null
            );
 
+            instance.Patch(
+               original: AccessTools.Method(typeof(GameInitData), nameof(GameInitData.PrepForMapGen)),
+               prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(PrepForMapGen_ScenPartExSupport)),
+               postfix: null
+           );
+
             discardGeneratedPawn = (Action<Pawn>) Delegate.CreateDelegate(typeof(Action<Pawn>), AccessTools.Method(typeof(PawnGenerator), "DiscardGeneratedPawn"));
             pawnsBeingGenerated = (IList) AccessTools.Field(typeof(PawnGenerator), "pawnsBeingGenerated").GetValue(null);
 
             Log.Message("More Scenario Parts Hooks Initialized");
         }
+
+
 
         private static void TryGenerateNewPawnInternal_ScenPartExSupport(ref PawnGenerationRequest request, ref string error, bool ignoreScenarioRequirements, ref Pawn __result)
         {
@@ -58,12 +66,19 @@ namespace More_Scenario_Parts
                 pawnsBeingGenerated.RemoveAt(pawnsBeingGenerated.Count - 1);
             }
 
-            __result.GetComp<PawnCreationOptions>().IsStartingPawn = request.Context == PawnGenerationContext.PlayerStarter;
+            var opts = __result.GetComp<PawnCreationOptions>();
+            opts.Request = request;
         }
 
         private static bool GeneratePawn_ScenPartExSupport(ref PawnGenerationRequest request)
         {
             ScenarioUtils.BeforeGeneratePawn(ref request);
+            return true;
+        }
+
+        private static bool PrepForMapGen_ScenPartExSupport()
+        {
+            ScenarioUtils.PrepForMapGen();
             return true;
         }
     }
@@ -93,6 +108,20 @@ namespace More_Scenario_Parts
                 }
             }
             return true;
+        }
+
+        internal static void PrepForMapGen()
+        {
+            var initData = Find.GameInitData;
+            var pawns = initData.startingAndOptionalPawns;
+            var startWith = initData.startingPawnCount;
+
+            for (int i = 0; i < pawns.Count; i++)
+            {
+                Pawn p = pawns[i];
+                var opts = p.GetComp<PawnCreationOptions>();
+                opts.SpawnedOnMapGeneration = i < startWith;
+            }
         }
     }
 }

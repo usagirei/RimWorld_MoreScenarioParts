@@ -53,7 +53,7 @@ namespace More_Scenario_Parts.ScenParts
             if (context == PawnModifierContext.PlayerStarter)
             {
                 Rect r = rows[2].BottomPart(0.25f);
-                Widgets.CheckboxLabeled(r, "starting only (defered)", ref hideOffMap);
+                Widgets.CheckboxLabeled(r, "on map only (defered)", ref hideOffMap);
             }
         }
 

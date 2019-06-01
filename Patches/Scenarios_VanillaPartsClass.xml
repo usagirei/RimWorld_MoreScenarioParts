@@ -4,7 +4,7 @@
  <Operation Class="PatchOperationSequence">
    <success>Always</success>
    <operations>
-     <li Class="PatchOperationAdd">
+     <li Class="PatchOperationReplace">
        <xpath>Defs/DamageDef[DefName="BombSuper"]</xpath>
        <value>
          <label>super bomb</label>
@@ -12,7 +12,6 @@
      </li>
    </operations>
  </Operation>
-
 
  <Operation Class="PatchOperationSequence">
    <success>Always</success>

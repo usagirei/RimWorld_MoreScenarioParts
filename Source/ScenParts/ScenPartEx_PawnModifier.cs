@@ -79,8 +79,6 @@ namespace More_Scenario_Parts.ScenParts
 
         public sealed override void Notify_NewPawnGenerating(Pawn pawn, PawnGenerationContext context)
         {
-            Log.Message($"Pawn Generating: {pawn.Name.ToStringFull} - {pawn.Faction?.Name ?? "null"} - {context}");
-
             if (!this.gender.Includes(pawn.gender))
                 return;
 
@@ -123,8 +121,6 @@ namespace More_Scenario_Parts.ScenParts
 
         public sealed override void Notify_PawnGenerated(Pawn pawn, PawnGenerationContext context, bool redressed)
         {
-            Log.Message($"Pawn Generated: {pawn.Name.ToStringFull} - {pawn.Faction?.Name ?? "null"} - {context} - {redressed}");
-
             if (!this.gender.Includes(pawn.gender))
                 return;
 
@@ -168,7 +164,6 @@ namespace More_Scenario_Parts.ScenParts
         public sealed override void Notify_PawnDied(Corpse corpse)
         {
             Pawn pawn = corpse.InnerPawn;
-            Log.Message($"Pawn Died: {pawn.Name.ToStringFull} - {pawn.Faction?.Name ?? "null"}");
 
             if (!this.gender.Includes(corpse.InnerPawn.gender))
                 return;
@@ -176,8 +171,10 @@ namespace More_Scenario_Parts.ScenParts
             if (!Rand.Chance(chance))
                 return;
 
+            var opts = corpse.InnerPawn.GetComp<PawnCreationOptions>();
+
             bool isPlayerFaction = corpse.InnerPawn.Faction?.IsPlayer ?? false;
-            bool isStartingPawn = pawn.GetComp<PawnCreationOptions>().IsStartingPawn;
+            bool isStartingPawn = opts.IsStartingPawn;
             switch (this.context)
             {
                 case PawnModifierContext.All:
@@ -206,7 +203,13 @@ namespace More_Scenario_Parts.ScenParts
                     if (corpse.Faction.def == faction)
                         ModifyDeadPawn(corpse, corpse.InnerPawn.RaceProps.Humanlike);
                     break;
+                   
             }
+        }
+
+        public override void PostMapGenerate(Map map)
+        {
+
         }
 
         protected virtual void ModifyNewPawn(Pawn p, bool humanLike)
