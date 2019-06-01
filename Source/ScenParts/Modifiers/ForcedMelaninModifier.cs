@@ -18,12 +18,26 @@ namespace More_Scenario_Parts.ScenParts
             Scribe_Values.Look<FloatRange>(ref melanin, nameof(melanin));
         }
 
+        private float phase = 0;
+        private float step = (360f / 5) * Mathf.Deg2Rad;
+        private Color curCol;
+
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
-            Rect rect = listing.GetScenPartRect(this, RowHeight * 4);
-            Rect[] rows = rect.SplitRows(1, 3);
+            phase += Time.deltaTime * step;
 
-            Widgets.FloatRange(rows[0], listing.CurHeight.GetHashCode(), ref melanin);
+            float t = (Mathf.Sin(phase) + 1) / 2f;
+
+            curCol = PawnSkinColors.GetSkinColor(melanin.LerpThroughRange(t));
+
+            Rect rect = listing.GetScenPartRect(this, RowHeight * 4 + 31f);
+            Rect[] rows = rect.SplitRows(31f, 4 * RowHeight);
+
+            Rect[] cols = rows[0].SplitCols(rows[0].width - 31f, 31f);
+
+
+            Widgets.FloatRange(cols[0], listing.CurHeight.GetHashCode(), ref melanin);
+            Widgets.DrawBoxSolid(cols[1].ContractedBy(4), curCol);
             FixMelaninRange();
 
             DoContextEditInterface(rows[1]);

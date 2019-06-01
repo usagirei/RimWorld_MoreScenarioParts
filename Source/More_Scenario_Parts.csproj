@@ -57,6 +57,7 @@
     <Compile Include="ScenParts\Modifiers\ForcedGenderModifier.cs" />
     <Compile Include="ScenParts\Modifiers\ForcedHediffModifier.cs" />
     <Compile Include="ScenParts\Filters\AllowedAgeFilter.cs" />
+    <Compile Include="ScenParts\Modifiers\ForcedHairColorModifier.cs" />
     <Compile Include="ScenParts\Modifiers\ForcedMelaninModifier.cs" />
     <Compile Include="ScenParts\Modifiers\ForcedTraitModifier.cs" />
     <Compile Include="ScenParts\Modifiers\OnPawnDeathExplodesModifier.cs" />

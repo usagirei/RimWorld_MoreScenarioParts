@@ -21,6 +21,15 @@
     <summaryPriority>460</summaryPriority>
   </ScenPartDef>
 
+  <ScenPartDef>
+    <defName>MSP_PawnModifier_HairColor</defName>
+    <label>[MSP] forced hair color</label>
+    <scenPartClass>More_Scenario_Parts.ScenParts.ForcedHairColorModifier</scenPartClass>
+    <category>PlayerPawnModifier</category>
+    <selectionWeight>1.0</selectionWeight>
+    <summaryPriority>460</summaryPriority>
+  </ScenPartDef>
+
   <!--
   <ScenPartDef>
     <defName>MSP_PawnFilter_Melanin</defName>
