@@ -3,7 +3,7 @@ using Verse;
 
 namespace More_Scenario_Parts
 {
-    static class HarmonyMethods
+    internal static class HarmonyMethods
     {
         public static bool AllowWorldStartingPawn(Pawn p, bool tryingToRedress, PawnGenerationRequest req)
         {

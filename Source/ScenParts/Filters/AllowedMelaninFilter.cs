@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using RimWorld;
+﻿using RimWorld;
 using UnityEngine;
 using Verse;
 
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class AllowedMelaninFilter : ScenPartEx_PawnFilter
     {
         private FloatRange allowedMelaninRange;
 
-        public override void ExposeData()
+        public override bool AllowPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
         {
-            base.ExposeData();
-            Scribe_Values.Look(ref allowedMelaninRange, nameof(allowedMelaninRange));
+            return allowedMelaninRange.Includes(pawn.story.melanin);
+        }
+
+        public override bool CanCoexistWith(ScenPart other)
+        {
+            // TODO: Fix
+            return true;
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -29,6 +30,12 @@ namespace More_Scenario_Parts.ScenParts
             DoContextEditInterface(rows[1]);
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref allowedMelaninRange, nameof(allowedMelaninRange));
+        }
+
         public override void Randomize()
         {
             base.Randomize();
@@ -39,9 +46,11 @@ namespace More_Scenario_Parts.ScenParts
                 case 0:
                     allowedMelaninRange.min = Rand.Range(0, 1);
                     break;
+
                 case 1:
                     allowedMelaninRange.max = Rand.Range(0, 1);
                     break;
+
                 case 2:
                     allowedMelaninRange.min = Rand.Range(0, 1);
                     allowedMelaninRange.max = Rand.Range(0, 1);
@@ -63,18 +72,5 @@ namespace More_Scenario_Parts.ScenParts
                 allowedMelaninRange.min = 0;
             }
         }
-
-        public override bool CanCoexistWith(ScenPart other)
-        {
-            // TODO: Fix
-            return true;
-        }
-
-        public override bool AllowPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
-        {
-            return allowedMelaninRange.Includes(pawn.story.melanin);
-        }
-
-
     }
 }

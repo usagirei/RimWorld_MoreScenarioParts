@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
 
-
 namespace More_Scenario_Parts.ScenParts
 {
     public class InventoryModifier : ScenPartEx_PawnModifier
     {
-        private ThingDef thing;
-        private ThingDef stuff;
-        private ThingKind thingKind;
         private IntRange amount;
         private bool equip;
+        private ThingDef stuff;
+        private ThingDef thing;
+        private ThingKind thingKind;
 
-        public override void ExposeData()
+        public override bool CanCoexistWith(ScenPart other)
         {
-
-            base.ExposeData();
-            Scribe_Defs.Look(ref thing, nameof(thing));
-            Scribe_Defs.Look(ref stuff, nameof(stuff));
-            Scribe_Values.Look(ref thingKind, nameof(thingKind));
-            Scribe_Values.Look(ref amount, nameof(amount), new IntRange(1, 10));
-            Scribe_Values.Look(ref equip, nameof(equip));
+            return true;
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -37,7 +29,7 @@ namespace More_Scenario_Parts.ScenParts
             Rect[] r_thing = rows[1].SplitCols(1, 2);
             Rect[] r_stuff = rows[2].SplitCols(1, 2);
             Rect[] r_amount = rows[3].SplitCols(1, 2);
-            Rect r_equip = rows[4]; 
+            Rect r_equip = rows[4];
 
             // Text.Anchor = TextAnchor.MiddleRight;
             Widgets.Label(r_kind[0], R.String.MSP_ThingKind.CapitalizeFirst());
@@ -62,7 +54,6 @@ namespace More_Scenario_Parts.ScenParts
             {
                 FloatMenuUtility.MakeMenu(GetThings(), (t) => t.LabelCap, (t) => () =>
                 {
-
                     thing = t;
                     if (t.MadeFromStuff)
                     {
@@ -129,42 +120,14 @@ namespace More_Scenario_Parts.ScenParts
             DoContextEditInterface(a[1]);
         }
 
-        private IEnumerable<ThingDef> GetThings()
+        public override void ExposeData()
         {
-            IEnumerable<ThingDef> things;
-            switch (thingKind)
-            {
-                case ThingKind.Weapon:
-                    things = DefDatabase<ThingDef>.AllDefs.Where(t => t.category == ThingCategory.Item && t.IsWeapon);
-                    break;
-                case ThingKind.Aparrel:
-                    things = DefDatabase<ThingDef>.AllDefs.Where(t => t.category == ThingCategory.Item && t.IsApparel);
-                    break;
-                case ThingKind.Items:
-                    things = DefDatabase<ThingDef>.AllDefs.Where(t => t.category == ThingCategory.Item && !(t.IsWeapon || t.IsApparel));
-                    break;
-                case ThingKind.Building:
-                    things = DefDatabase<ThingDef>.AllDefs.Where(t => t.category == ThingCategory.Building && t.Minifiable);
-                    break;
-                default:
-                    things = Enumerable.Empty<ThingDef>();
-                    break;
-            }
-
-            things = things.OrderBy(t => t.label).ToList();
-
-            return things;
-
-        }
-
-        private IEnumerable<ThingDef> GetStuffsForThing()
-        {
-            if (!thing.MadeFromStuff)
-            {
-                return Enumerable.Empty<ThingDef>();
-            }
-
-            return GenStuff.AllowedStuffsFor(thing).OrderBy(t => t.label);
+            base.ExposeData();
+            Scribe_Defs.Look(ref thing, nameof(thing));
+            Scribe_Defs.Look(ref stuff, nameof(stuff));
+            Scribe_Values.Look(ref thingKind, nameof(thingKind));
+            Scribe_Values.Look(ref amount, nameof(amount), new IntRange(1, 10));
+            Scribe_Values.Look(ref equip, nameof(equip));
         }
 
         public override void Randomize()
@@ -187,11 +150,6 @@ namespace More_Scenario_Parts.ScenParts
             }
         }
 
-        public override bool CanCoexistWith(ScenPart other)
-        {
-            return true;
-        }
-
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)
         {
             if (!humanLike)
@@ -203,7 +161,6 @@ namespace More_Scenario_Parts.ScenParts
             if (equip && thingKind == ThingKind.Aparrel && pawn.apparel != null)
             {
                 pawn.apparel.Wear((Apparel)t, false);
-
             }
             else if (equip && thingKind == ThingKind.Weapon && pawn.equipment != null)
             {
@@ -214,6 +171,47 @@ namespace More_Scenario_Parts.ScenParts
                 t.stackCount = amount.RandomInRange;
                 pawn.inventory.TryAddItemNotForSale(t);
             }
+        }
+
+        private IEnumerable<ThingDef> GetStuffsForThing()
+        {
+            if (!thing.MadeFromStuff)
+            {
+                return Enumerable.Empty<ThingDef>();
+            }
+
+            return GenStuff.AllowedStuffsFor(thing).OrderBy(t => t.label);
+        }
+
+        private IEnumerable<ThingDef> GetThings()
+        {
+            IEnumerable<ThingDef> things;
+            switch (thingKind)
+            {
+                case ThingKind.Weapon:
+                    things = DefDatabase<ThingDef>.AllDefs.Where(t => t.category == ThingCategory.Item && t.IsWeapon);
+                    break;
+
+                case ThingKind.Aparrel:
+                    things = DefDatabase<ThingDef>.AllDefs.Where(t => t.category == ThingCategory.Item && t.IsApparel);
+                    break;
+
+                case ThingKind.Items:
+                    things = DefDatabase<ThingDef>.AllDefs.Where(t => t.category == ThingCategory.Item && !(t.IsWeapon || t.IsApparel));
+                    break;
+
+                case ThingKind.Building:
+                    things = DefDatabase<ThingDef>.AllDefs.Where(t => t.category == ThingCategory.Building && t.Minifiable);
+                    break;
+
+                default:
+                    things = Enumerable.Empty<ThingDef>();
+                    break;
+            }
+
+            things = things.OrderBy(t => t.label).ToList();
+
+            return things;
         }
     }
 }

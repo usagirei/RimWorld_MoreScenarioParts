@@ -1,33 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
 
-
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class ForcedHediffModifier : ScenPartEx_PawnModifier
     {
         private HediffDef hediff;
-        private FloatRange severityRange;
         private bool hideOffMap;
+        private FloatRange severityRange;
 
-        private float getMaxSeverity(HediffDef def)
+        public override bool AllowPlayerStartingPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
         {
-            return def.lethalSeverity > 0f
-                ? (def.lethalSeverity * 0.99f)
-                : 1f;
+            return base.AllowPlayerStartingPawn(pawn, tryingToRedress, req) || DisallowIfWouldDie(pawn, req);
         }
 
-        public override void ExposeData()
+        public override bool AllowWorldGeneratedPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
         {
-            base.ExposeData();
-            Scribe_Defs.Look(ref hediff, nameof(hediff));
-            Scribe_Values.Look(ref severityRange, nameof(severityRange));
-            Scribe_Values.Look(ref hideOffMap, nameof(hideOffMap));
+            return base.AllowPlayerStartingPawn(pawn, tryingToRedress, req) && DisallowIfWouldDie(pawn, req);
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -63,6 +54,29 @@ namespace More_Scenario_Parts.ScenParts
             }
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Defs.Look(ref hediff, nameof(hediff));
+            Scribe_Values.Look(ref severityRange, nameof(severityRange));
+            Scribe_Values.Look(ref hideOffMap, nameof(hideOffMap));
+        }
+
+        public override void PostMapGenerate(Map map)
+        {
+            if (!hideOffMap || Find.GameInitData == null || context != PawnModifierContext.PlayerStarter)
+            {
+                return;
+            }
+
+            foreach (Pawn p in Find.GameInitData.startingAndOptionalPawns)
+            {
+                if (Rand.Chance(chance) && p.RaceProps.Humanlike)
+                {
+                    ModifyNewPawn(p, p.RaceProps.Humanlike);
+                }
+            }
+        }
 
         public override void Randomize()
         {
@@ -92,33 +106,6 @@ namespace More_Scenario_Parts.ScenParts
             Hediff instance = HediffMaker.MakeHediff(hediff, p, null);
             instance.Severity = severityRange.RandomInRange;
             p.health.AddHediff(instance, null, null, null);
-
-        }
-
-        public override void PostMapGenerate(Map map)
-        {
-            if (!hideOffMap || Find.GameInitData == null || context != PawnModifierContext.PlayerStarter)
-            {
-                return;
-            }
-
-            foreach (Pawn p in Find.GameInitData.startingAndOptionalPawns)
-            {
-                if (Rand.Chance(chance) && p.RaceProps.Humanlike)
-                {
-                    ModifyNewPawn(p, p.RaceProps.Humanlike);
-                }
-            }
-        }
-
-        public override bool AllowPlayerStartingPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
-        {
-            return base.AllowPlayerStartingPawn(pawn, tryingToRedress, req) || DisallowIfWouldDie(pawn, req);
-        }
-
-        public override bool AllowWorldGeneratedPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
-        {
-            return base.AllowPlayerStartingPawn(pawn, tryingToRedress, req) && DisallowIfWouldDie(pawn, req);
         }
 
         private bool DisallowIfWouldDie(Pawn pawn, PawnGenerationRequest req)
@@ -134,6 +121,13 @@ namespace More_Scenario_Parts.ScenParts
             }
 
             return true;
+        }
+
+        private float getMaxSeverity(HediffDef def)
+        {
+            return def.lethalSeverity > 0f
+                ? (def.lethalSeverity * 0.99f)
+                : 1f;
         }
     }
 }

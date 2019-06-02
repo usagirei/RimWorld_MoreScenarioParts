@@ -1,9 +1,9 @@
-﻿using More_Scenario_Parts.ScenParts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using More_Scenario_Parts.ScenParts;
 using UnityEngine;
 using Verse;
 
@@ -11,90 +11,9 @@ namespace More_Scenario_Parts
 {
     internal static class Extensions
     {
-        public static string Translate(this ThingKind thing)
-        {
-            switch (thing)
-            {
-                case ThingKind.Weapon:
-                    return R.String.MSP_ThingKind_Weapon.CapitalizeFirst();
-                case ThingKind.Aparrel:
-                    return R.String.MSP_ThingKind_Aparrel.CapitalizeFirst();
-                case ThingKind.Building:
-                    return R.String.MSP_ThingKind_Building.CapitalizeFirst();
-                case ThingKind.Items:
-                    return R.String.MSP_ThingKind_Items.CapitalizeFirst();
-                default:
-                    return R.String.MSP_Undefined.CapitalizeFirst();
-            }
-        }
-
-        public static string Translate(this PawnModifierContext c)
-        {
-            switch (c)
-            {
-                case PawnModifierContext.All:
-                    return R.String.MSP_PawnContext_All.CapitalizeFirst();
-                case PawnModifierContext.PlayerStarter:
-                    return R.String.MSP_PawnContext_PlayerStarter.CapitalizeFirst();
-                case PawnModifierContext.NonPlayer:
-                    return R.String.MSP_PawnContext_NonPlayer.CapitalizeFirst();
-                case PawnModifierContext.Faction:
-                    return R.String.MSP_PawnContext_Faction.CapitalizeFirst();
-                case PawnModifierContext.Player:
-                    return R.String.MSP_PawnContext_Player.CapitalizeFirst();
-                case PawnModifierContext.PlayerNonStarter:
-                    return R.String.MSP_PawnContext_PlayerNonStarter.CapitalizeFirst();
-                default:
-                    return R.String.MSP_Undefined.CapitalizeFirst();
-            }
-        }
-
-        public static string Translate(this PawnModifierGender c)
-        {
-            switch (c)
-            {
-                case PawnModifierGender.All:
-                    return R.String.MSP_Gender_All.CapitalizeFirst();
-                case PawnModifierGender.Male:
-                    return R.String.MSP_Gender_Male.CapitalizeFirst();
-                case PawnModifierGender.Female:
-                    return R.String.MSP_Gender_Female.CapitalizeFirst();
-                default:
-                    return R.String.MSP_Undefined.CapitalizeFirst();
-            }
-        }
-
-        public static bool Includes(this PawnModifierGender g, Gender other)
-        {
-            return (g == PawnModifierGender.All || other == Gender.None)
-                || (g == PawnModifierGender.Female && other == Gender.Female )
-                || (g == PawnModifierGender.Male && other == Gender.Male);
-        }
-
-        public  static bool Includes(this IntRange range, int val)
-        {
-            return val >= range.min && val <= range.max;
-        }
-
         public delegate void SetHandler<T, U>(ref T target, U value);
 
         private static Dictionary<string, object> _setters = new Dictionary<string, object>();
-
-        public static IEnumerable<T> GetEnumValues<T>() where T : struct, Enum
-        {
-            foreach (var v in Enum.GetValues(typeof(T)))
-            {
-                yield return (T)v;
-            }
-        }
-
-        public static TStruct WithProperty<TStruct, TValue>(this TStruct @struct, string propertyName, TValue value)
-            where TStruct : struct
-        {
-            var setter = CreateSetterForStructProperty<TStruct, TValue>(propertyName);
-            setter(ref @struct, value);
-            return @struct;
-        }
 
         public static SetHandler<T, U> CreateSetterForStructField<T, U>(string fieldName)
             where T : struct
@@ -148,9 +67,42 @@ namespace More_Scenario_Parts
                 return del;
             }
 
-
             var fieldName = $"<{prop.Name}>k__BackingField";
             return CreateSetterForStructField<T, U>(fieldName);
+        }
+
+        public static IEnumerable<T> GetEnumValues<T>() where T : struct, Enum
+        {
+            foreach (var v in Enum.GetValues(typeof(T)))
+            {
+                yield return (T)v;
+            }
+        }
+
+        public static bool Includes(this PawnModifierGender g, Gender other)
+        {
+            return (g == PawnModifierGender.All || other == Gender.None)
+                || (g == PawnModifierGender.Female && other == Gender.Female)
+                || (g == PawnModifierGender.Male && other == Gender.Male);
+        }
+
+        public static bool Includes(this IntRange range, int val)
+        {
+            return val >= range.min && val <= range.max;
+        }
+
+        public static Rect[] SplitCols(this Rect r, params float[] weights)
+        {
+            var totalWidth = weights.Sum();
+            Rect[] rects = new Rect[weights.Length];
+            float xOffset = 0;
+            for (int i = 0; i < weights.Length; i++)
+            {
+                float f = weights[i] / totalWidth;
+                rects[i] = new Rect(r.x + xOffset, r.y, r.width * f, r.height);
+                xOffset += rects[i].width;
+            }
+            return rects;
         }
 
         public static Rect[] SplitRows(this Rect r, params float[] weights)
@@ -167,18 +119,78 @@ namespace More_Scenario_Parts
             return rects;
         }
 
-        public static Rect[] SplitCols(this Rect r, params float[] weights)
+        public static string Translate(this ThingKind thing)
         {
-            var totalWidth = weights.Sum();
-            Rect[] rects = new Rect[weights.Length];
-            float xOffset = 0;
-            for (int i = 0; i < weights.Length; i++)
+            switch (thing)
             {
-                float f = weights[i] / totalWidth;
-                rects[i] = new Rect(r.x + xOffset, r.y, r.width * f, r.height);
-                xOffset += rects[i].width;
+                case ThingKind.Weapon:
+                    return R.String.MSP_ThingKind_Weapon.CapitalizeFirst();
+
+                case ThingKind.Aparrel:
+                    return R.String.MSP_ThingKind_Aparrel.CapitalizeFirst();
+
+                case ThingKind.Building:
+                    return R.String.MSP_ThingKind_Building.CapitalizeFirst();
+
+                case ThingKind.Items:
+                    return R.String.MSP_ThingKind_Items.CapitalizeFirst();
+
+                default:
+                    return R.String.MSP_Undefined.CapitalizeFirst();
             }
-            return rects;
+        }
+
+        public static string Translate(this PawnModifierContext c)
+        {
+            switch (c)
+            {
+                case PawnModifierContext.All:
+                    return R.String.MSP_PawnContext_All.CapitalizeFirst();
+
+                case PawnModifierContext.PlayerStarter:
+                    return R.String.MSP_PawnContext_PlayerStarter.CapitalizeFirst();
+
+                case PawnModifierContext.NonPlayer:
+                    return R.String.MSP_PawnContext_NonPlayer.CapitalizeFirst();
+
+                case PawnModifierContext.Faction:
+                    return R.String.MSP_PawnContext_Faction.CapitalizeFirst();
+
+                case PawnModifierContext.Player:
+                    return R.String.MSP_PawnContext_Player.CapitalizeFirst();
+
+                case PawnModifierContext.PlayerNonStarter:
+                    return R.String.MSP_PawnContext_PlayerNonStarter.CapitalizeFirst();
+
+                default:
+                    return R.String.MSP_Undefined.CapitalizeFirst();
+            }
+        }
+
+        public static string Translate(this PawnModifierGender c)
+        {
+            switch (c)
+            {
+                case PawnModifierGender.All:
+                    return R.String.MSP_Gender_All.CapitalizeFirst();
+
+                case PawnModifierGender.Male:
+                    return R.String.MSP_Gender_Male.CapitalizeFirst();
+
+                case PawnModifierGender.Female:
+                    return R.String.MSP_Gender_Female.CapitalizeFirst();
+
+                default:
+                    return R.String.MSP_Undefined.CapitalizeFirst();
+            }
+        }
+
+        public static TStruct WithProperty<TStruct, TValue>(this TStruct @struct, string propertyName, TValue value)
+            where TStruct : struct
+        {
+            var setter = CreateSetterForStructProperty<TStruct, TValue>(propertyName);
+            setter(ref @struct, value);
+            return @struct;
         }
     }
 }

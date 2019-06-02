@@ -1,17 +1,82 @@
-﻿using RimWorld;
-using System.Linq;
+﻿using System.Linq;
+using RimWorld;
 using UnityEngine;
 using Verse;
-
-
 
 namespace More_Scenario_Parts.ScenParts
 {
     public class ScenPartEx_PawnFilter : ScenPartEx
     {
         protected PawnModifierContext context;
-        protected PawnModifierGender gender;
         protected FactionDef faction;
+        protected PawnModifierGender gender;
+
+        public virtual bool AllowPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
+        {
+            return true;
+        }
+
+        public sealed override bool AllowPlayerStartingPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
+        {
+            if (!gender.Includes(pawn.gender))
+            {
+                return true;
+            }
+
+            bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
+            bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;
+
+            switch (context)
+            {
+                case PawnModifierContext.PlayerStarter when !isStartingPawn:
+                    return true;
+
+                case PawnModifierContext.PlayerNonStarter when isStartingPawn:
+                    return true;
+
+                case PawnModifierContext.Player when !isPlayerFaction:
+                    return true;
+
+                case PawnModifierContext.NonPlayer when isPlayerFaction:
+                    return true;
+
+                case PawnModifierContext.Faction when pawn.Faction.def != faction:
+                    return true;
+            }
+
+            return AllowPawn(pawn, tryingToRedress, req);
+        }
+
+        public sealed override bool AllowWorldGeneratedPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
+        {
+            if (!gender.Includes(pawn.gender))
+            {
+                return true;
+            }
+
+            bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
+            bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;
+
+            switch (context)
+            {
+                case PawnModifierContext.PlayerStarter when !isStartingPawn:
+                    return true;
+
+                case PawnModifierContext.PlayerNonStarter when isStartingPawn:
+                    return true;
+
+                case PawnModifierContext.Player when !isPlayerFaction:
+                    return true;
+
+                case PawnModifierContext.NonPlayer when isPlayerFaction:
+                    return true;
+
+                case PawnModifierContext.Faction when pawn.Faction.def != faction:
+                    return true;
+            }
+
+            return AllowPawn(pawn, tryingToRedress, req);
+        }
 
         public override void ExposeData()
         {
@@ -19,7 +84,13 @@ namespace More_Scenario_Parts.ScenParts
             Scribe_Values.Look(ref context, nameof(context), PawnModifierContext.All, false);
             Scribe_Values.Look(ref faction, nameof(faction));
             Scribe_Values.Look(ref gender, nameof(gender));
+        }
 
+        public override void Randomize()
+        {
+            context = Extensions.GetEnumValues<PawnModifierContext>().RandomElement();
+            faction = faction = DefDatabase<FactionDef>.AllDefs.Where(f => !f.isPlayer).RandomElement();
+            gender = Extensions.GetEnumValues<PawnModifierGender>().RandomElement();
         }
 
         protected void DoContextEditInterface(Rect rect)
@@ -59,76 +130,6 @@ namespace More_Scenario_Parts.ScenParts
                     FloatMenuUtility.MakeMenu(DefDatabase<FactionDef>.AllDefs.Where((d) => !d.isPlayer), (f) => f.LabelCap, (f) => () => faction = f);
                 }
             }
-        }
-
-        public override void Randomize()
-        {
-            context = Extensions.GetEnumValues<PawnModifierContext>().RandomElement();
-            faction = faction = DefDatabase<FactionDef>.AllDefs.Where(f => !f.isPlayer).RandomElement();
-            gender = Extensions.GetEnumValues<PawnModifierGender>().RandomElement();
-        }
-
-        public sealed override bool AllowPlayerStartingPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
-        {
-            if (!gender.Includes(pawn.gender))
-            {
-                return true;
-            }
-
-            bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
-            bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;
-
-            switch (context)
-            {
-                case PawnModifierContext.PlayerStarter when !isStartingPawn:
-                    return true;
-                case PawnModifierContext.PlayerNonStarter when isStartingPawn:
-                    return true;
-
-                case PawnModifierContext.Player when !isPlayerFaction:
-                    return true;
-                case PawnModifierContext.NonPlayer when isPlayerFaction:
-                    return true;                
-
-                case PawnModifierContext.Faction when pawn.Faction.def != faction:
-                    return true;
-            }
-
-            return AllowPawn(pawn, tryingToRedress, req);
-        }
-
-        public sealed override bool AllowWorldGeneratedPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
-        {
-            if (!gender.Includes(pawn.gender))
-            {
-                return true;
-            }
-
-            bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
-            bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;
-
-            switch (context)
-            {
-                case PawnModifierContext.PlayerStarter when !isStartingPawn:
-                    return true;
-                case PawnModifierContext.PlayerNonStarter when isStartingPawn:
-                    return true;
-
-                case PawnModifierContext.Player when !isPlayerFaction:
-                    return true;
-                case PawnModifierContext.NonPlayer when isPlayerFaction:
-                    return true;
-
-                case PawnModifierContext.Faction when pawn.Faction.def != faction:
-                    return true;
-            }
-
-            return AllowPawn(pawn, tryingToRedress, req);
-        }
-
-        public virtual bool AllowPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
-        {
-            return true;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using UnityEngine;
@@ -7,17 +6,15 @@ using Verse;
 
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class ForcedTraitModifier : ScenPartEx_PawnModifier
     {
-        private TraitDef trait;
         private int degree;
+        private TraitDef trait;
 
-        public override void ExposeData()
+        public override bool CanCoexistWith(ScenPart other)
         {
-            base.ExposeData();
-            Scribe_Defs.Look(ref trait, nameof(trait));
-            Scribe_Values.Look(ref degree, nameof(degree), 0, false);
+            // TODO: Fix
+            return true;
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -32,7 +29,6 @@ namespace More_Scenario_Parts.ScenParts
                            orderby def.label ascending
                            select new { Trait = def, Degree = deg };
 
-
                 FloatMenuUtility.MakeMenu(defs, (x) => x.Degree.label.CapitalizeFirst(), (x) => () =>
                 {
                     trait = x.Trait;
@@ -42,17 +38,18 @@ namespace More_Scenario_Parts.ScenParts
             DoContextEditInterface(rows[1]);
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Defs.Look(ref trait, nameof(trait));
+            Scribe_Values.Look(ref degree, nameof(degree), 0, false);
+        }
+
         public override void Randomize()
         {
             base.Randomize();
             trait = DefDatabase<TraitDef>.GetRandom();
             degree = trait.degreeDatas.RandomElement().degree;
-        }
-
-        public override bool CanCoexistWith(ScenPart other)
-        {
-            // TODO: Fix
-            return true;
         }
 
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)

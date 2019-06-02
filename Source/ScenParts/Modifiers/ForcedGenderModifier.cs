@@ -1,39 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
 
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class ForcedGenderModifier : ScenPartEx
     {
         private float chance = 1f;
-        private PawnModifierContext context;
-        private PawnModifierGender gender;
-        private FactionDef faction;
-
         private string chanceBuf;
+        private PawnModifierContext context;
+        private FactionDef faction;
+        private PawnModifierGender gender;
 
-        public override void ExposeData()
+        public override bool CanCoexistWith(ScenPart other)
         {
-            base.ExposeData();
-            Scribe_Values.Look(ref chance, nameof(chance), 0f, false);
-            Scribe_Values.Look(ref context, nameof(context), PawnModifierContext.All, false);
-            Scribe_Values.Look(ref faction, nameof(faction));
-            Scribe_Values.Look(ref gender, nameof(gender));
-        }
-
-
-        public override void Randomize()
-        {
-            base.Randomize();
-            gender = Rand.Bool ? PawnModifierGender.Male : PawnModifierGender.Female;
-            chance = GenMath.RoundedHundredth(Rand.Range(0.05f, 1f));
-            context = Extensions.GetEnumValues<PawnModifierContext>().RandomElement();
-            faction = faction = DefDatabase<FactionDef>.AllDefs.Where(f => !f.isPlayer).RandomElement();
+            // TODO: Fix
+            return true;
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -83,6 +66,15 @@ namespace More_Scenario_Parts.ScenParts
             }
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref chance, nameof(chance), 0f, false);
+            Scribe_Values.Look(ref context, nameof(context), PawnModifierContext.All, false);
+            Scribe_Values.Look(ref faction, nameof(faction));
+            Scribe_Values.Look(ref gender, nameof(gender));
+        }
+
         public override PawnGenerationRequest Notify_PawnGenerationRequest(PawnGenerationRequest req)
         {
             if (req.FixedGender.HasValue)
@@ -101,12 +93,16 @@ namespace More_Scenario_Parts.ScenParts
             {
                 case PawnModifierContext.All:
                     return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
+
                 case PawnModifierContext.Player when isPlayerFaction:
                     return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
+
                 case PawnModifierContext.NonPlayer when !isPlayerFaction:
                     return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
+
                 case PawnModifierContext.Faction when faction == req.Faction.def:
                     return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
+
                 case PawnModifierContext.PlayerStarter when req.Context == PawnGenerationContext.PlayerStarter:
                     return req.WithProperty(nameof(PawnGenerationRequest.FixedGender), g);
             }
@@ -114,11 +110,13 @@ namespace More_Scenario_Parts.ScenParts
             return req;
         }
 
-
-        public override bool CanCoexistWith(ScenPart other)
+        public override void Randomize()
         {
-            // TODO: Fix
-            return true;
+            base.Randomize();
+            gender = Rand.Bool ? PawnModifierGender.Male : PawnModifierGender.Female;
+            chance = GenMath.RoundedHundredth(Rand.Range(0.05f, 1f));
+            context = Extensions.GetEnumValues<PawnModifierContext>().RandomElement();
+            faction = faction = DefDatabase<FactionDef>.AllDefs.Where(f => !f.isPlayer).RandomElement();
         }
     }
 }

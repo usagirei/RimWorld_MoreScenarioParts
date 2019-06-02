@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Harmony;
 using More_Scenario_Parts.ScenParts;
 using RimWorld;
@@ -10,9 +7,8 @@ using Verse;
 
 namespace More_Scenario_Parts
 {
-
     [StaticConstructorOnStartup]
-    class HarmonyPatches
+    internal class HarmonyPatches
     {
         private static Action<Pawn> discardGeneratedPawn;
         private static IList pawnsBeingGenerated;
@@ -39,13 +35,23 @@ namespace More_Scenario_Parts
                postfix: null
            );
 
-            discardGeneratedPawn = (Action<Pawn>) Delegate.CreateDelegate(typeof(Action<Pawn>), AccessTools.Method(typeof(PawnGenerator), "DiscardGeneratedPawn"));
-            pawnsBeingGenerated = (IList) AccessTools.Field(typeof(PawnGenerator), "pawnsBeingGenerated").GetValue(null);
+            discardGeneratedPawn = (Action<Pawn>)Delegate.CreateDelegate(typeof(Action<Pawn>), AccessTools.Method(typeof(PawnGenerator), "DiscardGeneratedPawn"));
+            pawnsBeingGenerated = (IList)AccessTools.Field(typeof(PawnGenerator), "pawnsBeingGenerated").GetValue(null);
 
             Log.Message("More Scenario Parts Hooks Initialized");
         }
 
+        private static bool GeneratePawn_ScenPartExSupport(ref PawnGenerationRequest request)
+        {
+            HarmonyMethods.BeforeGeneratePawn(ref request);
+            return true;
+        }
 
+        private static bool PrepForMapGen_ScenPartExSupport()
+        {
+            HarmonyMethods.PrepForMapGen();
+            return true;
+        }
 
         private static void TryGenerateNewPawnInternal_ScenPartExSupport(ref PawnGenerationRequest request, ref string error, bool ignoreScenarioRequirements, ref Pawn __result)
         {
@@ -73,18 +79,6 @@ namespace More_Scenario_Parts
 
             var opts = __result.GetComp<PawnCreationOptions>();
             opts.Request = request;
-        }
-
-        private static bool GeneratePawn_ScenPartExSupport(ref PawnGenerationRequest request)
-        {
-            HarmonyMethods.BeforeGeneratePawn(ref request);
-            return true;
-        }
-
-        private static bool PrepForMapGen_ScenPartExSupport()
-        {
-            HarmonyMethods.PrepForMapGen();
-            return true;
         }
     }
 }

@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using RimWorld;
+﻿using RimWorld;
 using UnityEngine;
 using Verse;
 
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class ForcedHairColorModifier : ScenPartEx_PawnModifier
     {
-        private FloatRange hairColorR;
-        private FloatRange hairColorG;
+        private Color curCol;
+
         private FloatRange hairColorB;
+        private FloatRange hairColorG;
+        private FloatRange hairColorR;
 
-        public override void ExposeData()
-        {
-            base.ExposeData();
-            Scribe_Values.Look(ref hairColorR, nameof(hairColorR));
-            Scribe_Values.Look(ref hairColorG, nameof(hairColorG));
-            Scribe_Values.Look(ref hairColorB, nameof(hairColorB));
-        }
-
+        private float offset = Mathf.Sin(180 / 3 * Mathf.Deg2Rad);
         private float phase = 0;
         private float step = (360f / 5) * Mathf.Deg2Rad;
-        private float offset = Mathf.Sin(180 / 3 * Mathf.Deg2Rad);
-        private Color curCol;
+
+        public override bool CanCoexistWith(ScenPart other)
+        {
+            // TODO: Fix
+            return true;
+        }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
         {
@@ -42,21 +37,29 @@ namespace More_Scenario_Parts.ScenParts
             curCol = new Color(r, g, b);
 
             Rect rect = listing.GetScenPartRect(this, RowHeight * 4 + 3 * 31f);
-            Rect[] rows = rect.SplitRows( 31f * 3, 4 * RowHeight );
+            Rect[] rows = rect.SplitRows(31f * 3, 4 * RowHeight);
 
-            Rect[] cols = rows[0].SplitCols( rows[0].width - rows[0].height, rows[0].height );
+            Rect[] cols = rows[0].SplitCols(rows[0].width - rows[0].height, rows[0].height);
             Rect prev = cols[1].ContractedBy(8);
             Rect[] sliders = cols[0].SplitRows(1, 1, 1);
 
             Widgets.FloatRange(sliders[0], listing.CurHeight.GetHashCode() + 0, ref hairColorR);
             Widgets.FloatRange(sliders[1], listing.CurHeight.GetHashCode() + 1, ref hairColorG);
             Widgets.FloatRange(sliders[2], listing.CurHeight.GetHashCode() + 2, ref hairColorB);
-            
+
             Widgets.DrawBoxSolid(prev, curCol);
 
             Log.Message(curCol.ToStringSafe());
 
             DoContextEditInterface(rows[1]);
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref hairColorR, nameof(hairColorR));
+            Scribe_Values.Look(ref hairColorG, nameof(hairColorG));
+            Scribe_Values.Look(ref hairColorB, nameof(hairColorB));
         }
 
         public override void Randomize()
@@ -69,9 +72,11 @@ namespace More_Scenario_Parts.ScenParts
                     case 0:
                         r.min = Rand.Range(0, 1);
                         break;
+
                     case 1:
                         r.max = Rand.Range(0, 1);
                         break;
+
                     case 2:
                         r.min = Rand.Range(0, 1);
                         r.max = Rand.Range(0, 1);
@@ -91,13 +96,6 @@ namespace More_Scenario_Parts.ScenParts
             hairColorR = randRang();
             hairColorG = randRang();
             hairColorB = randRang();
-        }
-
-
-        public override bool CanCoexistWith(ScenPart other)
-        {
-            // TODO: Fix
-            return true;
         }
 
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)

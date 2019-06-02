@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using RimWorld;
+﻿using RimWorld;
 using UnityEngine;
 using Verse;
 
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class AllowedAgeFilter : ScenPartEx_PawnFilter
     {
         private IntRange allowedAgeRange;
 
-        public override void ExposeData()
+        public override bool AllowPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
         {
-            base.ExposeData();
-            Scribe_Values.Look(ref allowedAgeRange, nameof(allowedAgeRange));
+            return allowedAgeRange.Includes(pawn.ageTracker.AgeBiologicalYears);
+        }
+
+        public override bool CanCoexistWith(ScenPart other)
+        {
+            // TODO: Fix
+            return true;
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -29,6 +30,12 @@ namespace More_Scenario_Parts.ScenParts
             DoContextEditInterface(rows[1]);
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref allowedAgeRange, nameof(allowedAgeRange));
+        }
+
         public override void Randomize()
         {
             base.Randomize();
@@ -39,9 +46,11 @@ namespace More_Scenario_Parts.ScenParts
                 case 0:
                     allowedAgeRange.min = Rand.Range(20, 60);
                     break;
+
                 case 1:
                     allowedAgeRange.max = Rand.Range(20, 60);
                     break;
+
                 case 2:
                     allowedAgeRange.min = Rand.Range(20, 60);
                     allowedAgeRange.max = Rand.Range(20, 60);
@@ -62,18 +71,5 @@ namespace More_Scenario_Parts.ScenParts
                 allowedAgeRange.min = allowedAgeRange.max - 4;
             }
         }
-
-        public override bool CanCoexistWith(ScenPart other)
-        {
-            // TODO: Fix
-            return true;
-        }
-
-        public override bool AllowPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
-        {
-            return allowedAgeRange.Includes(pawn.ageTracker.AgeBiologicalYears);
-        }
-
-
     }
 }

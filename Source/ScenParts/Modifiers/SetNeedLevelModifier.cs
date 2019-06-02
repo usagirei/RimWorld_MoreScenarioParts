@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
 
-
-
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class SetNeedLevelModifier : ScenPartEx_PawnModifier
     {
-        private NeedDef need;
         private FloatRange levelRange;
+        private NeedDef need;
 
-        public override void ExposeData()
+        public override bool CanCoexistWith(ScenPart other)
         {
-            base.ExposeData();
-            Scribe_Defs.Look(ref need, nameof(need));
-            Scribe_Values.Look(ref levelRange, nameof(levelRange));
+            // TODO: Fix
+            return true;
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -36,18 +30,19 @@ namespace More_Scenario_Parts.ScenParts
             DoContextEditInterface(rows[2]);
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Defs.Look(ref need, nameof(need));
+            Scribe_Values.Look(ref levelRange, nameof(levelRange));
+        }
+
         public override void Randomize()
         {
             base.Randomize();
             need = DefDatabase<NeedDef>.AllDefs.Where((NeedDef x) => x.major).RandomElement();
             levelRange.max = Rand.Range(0f, 1f);
             levelRange.min = levelRange.max * Rand.Range(0f, 0.95f);
-        }
-
-        public override bool CanCoexistWith(ScenPart other)
-        {
-            // TODO: Fix
-            return true;
         }
 
         protected override void ModifyGeneratedPawn(Pawn pawn, bool redressed, bool humanLike)

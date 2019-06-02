@@ -1,30 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
 
-
 namespace More_Scenario_Parts.ScenParts
 {
-
     public class OnPawnDeathExplodesModifier : ScenPartEx_PawnModifier
     {
-        private float radius = 5.9f;
         private DamageDef damage;
+        private float radius = 5.9f;
         private string radiusBuf;
 
-        public override void ExposeData()
+        public override bool CanCoexistWith(ScenPart other)
         {
-            base.ExposeData();
-            Scribe_Defs.Look(ref damage, nameof(damage));
-            Scribe_Values.Look(ref radius, nameof(radius), 0, false);
-        }
-
-        private IEnumerable<DamageDef> PossibleDamageDefs()
-        {
-            return DefDatabase<DamageDef>.AllDefs.Where(d => d.explosionCellMote != null);
+            return true;
         }
 
         public override void DoEditInterface(Listing_ScenEdit listing)
@@ -46,16 +36,18 @@ namespace More_Scenario_Parts.ScenParts
             DoContextEditInterface(rows[2]);
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Defs.Look(ref damage, nameof(damage));
+            Scribe_Values.Look(ref radius, nameof(radius), 0, false);
+        }
+
         public override void Randomize()
         {
             base.Randomize();
             damage = PossibleDamageDefs().RandomElement();
             radius = Rand.RangeInclusive(3, 8) - 0.1f;
-        }
-
-        public override bool CanCoexistWith(ScenPart other)
-        {
-            return true;
         }
 
         protected override void ModifyDeadPawn(Corpse corpse, bool humanLike)
@@ -64,6 +56,11 @@ namespace More_Scenario_Parts.ScenParts
             {
                 GenExplosion.DoExplosion(corpse.Position, corpse.Map, radius, damage, null, explosionSound: damage.soundExplosion);
             }
+        }
+
+        private IEnumerable<DamageDef> PossibleDamageDefs()
+        {
+            return DefDatabase<DamageDef>.AllDefs.Where(d => d.explosionCellMote != null);
         }
     }
 }
