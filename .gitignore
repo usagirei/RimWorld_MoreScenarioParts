@@ -3,6 +3,7 @@
 
 Assemblies/*
 !Assemblies/0Harmony.dll
+!Assemblies/*LICENSE*
 .vscode
 
 # User-specific files (MonoDevelop/Xamarin Studio)
