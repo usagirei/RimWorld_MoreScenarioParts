@@ -18,64 +18,12 @@ namespace More_Scenario_Parts.ScenParts
 
         public sealed override bool AllowPlayerStartingPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
         {
-            if (!gender.Includes(pawn.gender))
-            {
-                return true;
-            }
-
-            bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
-            bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;
-
-            switch (context)
-            {
-                case PawnModifierContext.PlayerStarter when !isStartingPawn:
-                    return true;
-
-                case PawnModifierContext.PlayerNonStarter when isStartingPawn:
-                    return true;
-
-                case PawnModifierContext.Player when !isPlayerFaction:
-                    return true;
-
-                case PawnModifierContext.NonPlayer when isPlayerFaction:
-                    return true;
-
-                case PawnModifierContext.Faction when pawn.Faction.def != faction:
-                    return true;
-            }
-
-            return AllowPawn(pawn, tryingToRedress, req);
+            return AllowPawn_Internal(pawn, tryingToRedress, req);
         }
 
         public sealed override bool AllowWorldGeneratedPawn(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
         {
-            if (!gender.Includes(pawn.gender))
-            {
-                return true;
-            }
-
-            bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
-            bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;
-
-            switch (context)
-            {
-                case PawnModifierContext.PlayerStarter when !isStartingPawn:
-                    return true;
-
-                case PawnModifierContext.PlayerNonStarter when isStartingPawn:
-                    return true;
-
-                case PawnModifierContext.Player when !isPlayerFaction:
-                    return true;
-
-                case PawnModifierContext.NonPlayer when isPlayerFaction:
-                    return true;
-
-                case PawnModifierContext.Faction when pawn.Faction.def != faction:
-                    return true;
-            }
-
-            return AllowPawn(pawn, tryingToRedress, req);
+            return AllowPawn_Internal(pawn, tryingToRedress, req);
         }
 
         public override void ExposeData()
@@ -130,6 +78,37 @@ namespace More_Scenario_Parts.ScenParts
                     FloatMenuUtility.MakeMenu(DefDatabase<FactionDef>.AllDefs.Where((d) => !d.isPlayer), (f) => f.LabelCap, (f) => () => faction = f);
                 }
             }
+        }
+
+        private bool AllowPawn_Internal(Pawn pawn, bool tryingToRedress, PawnGenerationRequest req)
+        {
+            if (!gender.Includes(pawn.gender))
+            {
+                return true;
+            }
+
+            bool isPlayerFaction = pawn.Faction?.IsPlayer ?? false;
+            bool isStartingPawn = req.Context == PawnGenerationContext.PlayerStarter;
+
+            switch (context)
+            {
+                case PawnModifierContext.PlayerStarter when !isStartingPawn:
+                    return true;
+
+                case PawnModifierContext.PlayerNonStarter when isStartingPawn:
+                    return true;
+
+                case PawnModifierContext.Player when !isPlayerFaction:
+                    return true;
+
+                case PawnModifierContext.NonPlayer when isPlayerFaction:
+                    return true;
+
+                case PawnModifierContext.Faction when pawn.Faction.def != faction:
+                    return true;
+            }
+
+            return AllowPawn(pawn, tryingToRedress, req);
         }
     }
 }
